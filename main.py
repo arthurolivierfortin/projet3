@@ -12,11 +12,14 @@ secret = "07088f23-df64-4ff3-a352-08cb9a19158d"
 
 if __name__ == "__main__":
     args = analyser_commande()
+    
+    if args.automatique:
+        pass
     if args.parties:
         parties = lister_parties(args.idul, secret)
         print(formater_les_parties(parties))
 
-
+    
     if args.local:
         # Implémenter la boucle pour jouer contre votre bot en local
         joueurs = [{"nom": args.idul, "murs": 10, "pos": [5, 1]}, {"nom": 'automate', "murs": 10, "pos": [5, 9]}]

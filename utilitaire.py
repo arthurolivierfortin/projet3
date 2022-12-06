@@ -31,6 +31,16 @@ def analyser_commande():
         '--local',
         help='jouer en local',
         action='store_true' )
+    parser.add_argument(
+        '-a',
+        '--automatique',
+        help='Activer le mode automatique.',
+        action='store_true' )
+    parser.add_argument(
+        '-x',
+        '--graphique',
+        help='Activer le mode graphique.',
+        action='store_true' )
     # Complétez le code ici
     # vous pourriez aussi avoir à ajouter des arguments dans ArgumentParser(...)
 
