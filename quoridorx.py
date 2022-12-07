@@ -12,8 +12,7 @@ class QuoridorX(Quoridor):
         self.M1 = turtle.Turtle()
         self.M1.shape("square")
         self.M2 = turtle.Turtle()
-        self.M1.forward(250)
-        self.M2.forward(250)
+        
         
     def graphique():
         #fen = turtle.Screen()
@@ -777,7 +776,15 @@ class QuoridorX(Quoridor):
 
     def positionnement_joueur(self):
  
-        
+        #positionnement m1 et m2
+        M1 = turtle.Turtle()
+        self.M1 = M1
+        M2 = turtle.Turtle()
+        self.M2 = M2
+        self.M1.forward(250)
+        self.M1.right(180)
+        self.M2.forward(250)
+        self.M2.right(180)
         #joueur
         J1 = turtle.Turtle()
         self.J1 = J1
@@ -800,7 +807,7 @@ class QuoridorX(Quoridor):
         self.J2.right(180)
         
     def déplacement_joueur(self, position, état):
-
+        
         delta_x = état["joueurs"][0]["pos"][0] - position[0]
         delta_y = état["joueurs"][0]["pos"][1] - position[1]
 
@@ -823,10 +830,41 @@ class QuoridorX(Quoridor):
                 self.J1.forward(40)
                 self.J1.right(90)
 
-    def placement_mur(self, position, état, orientation):
+    def placement_mur(self, position, orientation, état):
 
         if orientation == 'MV':
-            pass
+            self.M1.penup()
+            print
+            self.M1.forward(250)
+            self.M1.color('blue')
+            self.M1.speed('fastest')
+            if 1 <= position[0] < 5:
+                déplacement = (5 - int(position[0]))*40
+                self.M1.forward(déplacement-20)
+                self.M1.right(90)
+            if 1 <= position[1] < 5:
+                self.M1.right(270)
+                déplacement = (5 - int(position[0]))*40
+                self.M1.forward(déplacement+10)
+                self.M1.right(180)
+            if 9 >= position[0] < 5:
+                déplacement = (5 - int(position[0]))*40
+                self.M1.right(180)
+                self.M1.forward(déplacement)
+                self.M1.right(90)
+            if 9 >= position[1] < 5:
+                self.M1.right(180)
+                déplacement = (5 - int(position[0]))*40
+                self.M1.forward(déplacement)
+                self.M1.right(180)
+            self.M1.color('white')
+            self.M1.pendown()
+            self.M1.forward(100)
+            self.M1.color('blue')
+            self.M1.penup()
+            self.M1.goto((0,250))
+
+    
         if orientation == 'MH':
             pass
 
