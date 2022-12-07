@@ -27,7 +27,7 @@ class QuoridorX(Quoridor):
 
         #périmètre du jeu
         clair = turtle.Turtle()
-        clair.shape("dot")
+        clair.shape("circle")
         clair.pencolor("white")
         clair.penup()
         clair.forward(200)
@@ -43,14 +43,27 @@ class QuoridorX(Quoridor):
         clair.left(90)
         clair.forward(200)
         clair.left(90)
-        clair.forward(200)
-        clair.pensize(4)
+        clair.penup()
+        clair.forward(220)
+        clair.right(90)
+        clair.shapesize(0.1)
+        
 
         #point dans le jeu
         
-        for i in range(10**2):
-            i += 1
-            clair.forward(40*i)
+        clair.stamp()
+        nombre_stamp = 1
+        while nombre_stamp < 9:
+            for i in range(nombre_stamp):
+                clair.forward(40)
+                clair.stamp()
             clair.right(90)
-            
+            for i in range(nombre_stamp):
+                clair.forward(40)
+                clair.stamp()
+            clair.right(90)
+           
+            nombre_stamp +=1
+
+
         
