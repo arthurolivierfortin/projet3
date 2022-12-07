@@ -27,6 +27,7 @@ class QuoridorX(Quoridor):
 
         #périmètre du jeu
         clair = turtle.Turtle()
+        clair.speed("fast")
         clair.shape("circle")
         clair.pencolor("white")
         clair.penup()
