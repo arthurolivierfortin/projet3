@@ -596,7 +596,7 @@ class QuoridorX(Quoridor):
         charles.forward(5)
         charles.forward(50)
     
-    def légende(état):
+    def positionnement_joueur(état):
         print(état)
         
         #joueur
