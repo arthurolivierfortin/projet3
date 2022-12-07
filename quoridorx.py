@@ -512,7 +512,7 @@ class QuoridorX(Quoridor):
         charles.penup()
         charles.color("black")
         charles.forward(15)
-        charles.forward(45)
+        charles.forward(42)
         charles.left(90)
         #8
         charles.color("white")
@@ -559,7 +559,7 @@ class QuoridorX(Quoridor):
         charles.penup()
         charles.color("black")
         charles.forward(20)
-        charles.forward(35)
+        charles.forward(30)
         charles.left(90)
         #9
         charles.right(90)
