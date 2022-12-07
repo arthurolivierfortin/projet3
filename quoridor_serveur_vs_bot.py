@@ -174,21 +174,8 @@ def formater_les_parties(parties):
     return liste
 
 
-def récupérer_le_coup(état):
-    """Récupérer le coup
 
-    Returns:
-        tuple: Un tuple composé d'un type de coup et de la position.
-               Le type de coup est une chaîne de caractères.
-               La position est une liste de 2 entier [x, y].
-    Examples:
-        Quel type de coup voulez-vous jouer? ('D', 'MH', 'MV'):
-        Donnez la position où appliquer ce coup (x,y): 2,6
-    """
-    print(état)
-
-
-def jouer_le_coup(self, joueur):
+def jouer_le_coup(état):
         """Jouer un coup automatique pour un joueur.
 
         Pour le joueur spécifié, jouer automatiquement son meilleur coup pour l'état actuel
@@ -206,53 +193,52 @@ def jouer_le_coup(self, joueur):
             Tuple[str, List[int, int]]: Un tuple composé du type et de la position du coup joué.
         """
 
-        if joueur != 1 and joueur != 2:
-            raise QuoridorError("Le numéro du joueur est autre que 1 ou 2.")
+        
 
-        if self.état["joueurs"][0]["pos"][1] == 9:
-            raise QuoridorError(" QuoridorError: La partie est déjà terminée.")
-
-        if self.état["joueurs"][1]["pos"][1] == 1:
-            raise QuoridorError(" QuoridorError: La partie est déjà terminée.")
+        
 
 
         graphe = construire_graphe(
-            [tuple(joueur['pos']) for joueur in self.état['joueurs']],
-            tuple(self.état['murs']['horizontaux']),
-            tuple(self.état['murs']['verticaux']))
+            [tuple(joueur['pos']) for joueur in état['joueurs']],
+            tuple(état['murs']['horizontaux']),
+            tuple(état['murs']['verticaux']))
 
-        liste_chemin_rapide_J1 = nx.shortest_path(graphe, tuple(self.état["joueurs"][0]["pos"]), 'B1')
+        liste_chemin_rapide_J2 = nx.shortest_path(graphe, tuple(état["joueurs"][1]["pos"]), 'B2')
+        print(f"{liste_chemin_rapide_J2} liste de chemin J1 l-207")
 
-        for i in liste_chemin_rapide_J1:
+        for i in liste_chemin_rapide_J2:
             if type(i) != tuple:
-                liste_chemin_rapide_J1.remove(i)
+                liste_chemin_rapide_J2.remove(i)
 
-        Choix_de_chemin_J1 = list(graphe.successors(tuple(self.état["joueurs"][0]["pos"])))
-        for i in Choix_de_chemin_J1:
+        Choix_de_chemin_J2 = list(graphe.successors(tuple(état["joueurs"][1]["pos"])))
+        print(f"{Choix_de_chemin_J2} Choix de chemin J2 l-213")
+        for i in Choix_de_chemin_J2:
             if type(i) != tuple:
-                Choix_de_chemin_J1.remove(i)
+                Choix_de_chemin_J2.remove(i)
 
-        for i in liste_chemin_rapide_J1:
-            for j in Choix_de_chemin_J1:
+        for i in liste_chemin_rapide_J2:
+            for j in Choix_de_chemin_J2:
                 if j == i:
-                    x = j
+                    variable_x = j
 
 
 
-        if len(Choix_de_chemin_J1) > 1:
-            if self.état["joueurs"][0]["pos"][0] != x[0]:
+        if len(Choix_de_chemin_J2) > 1:
+            if état["joueurs"][1]["pos"][0] != variable_x[0]:
  
-                delta = self.état["joueurs"][0]["pos"][0] - x[0]
+                delta = état["joueurs"][1]["pos"][0] - variable_x[0]
                 if delta < 0:
-                    variable_k = self.état["joueurs"][0]["pos"][0]
-                    variable_y = self.état["joueurs"][0]["pos"][1]
-                    variable_ky = [(variable_k+1), variable_y]
+                    variable_k = état["joueurs"][1]["pos"][0]
+                    variable_y = état["joueurs"][1]["pos"][1]
+                    variable_ky = [(variable_k+1), variable_y-1]
                 if delta > 0:
-                    variable_k = self.état["joueurs"][0]["pos"][0]
-                    variable_y = self.état["joueurs"][0]["pos"][1]
-                    variable_ky = [variable_k, variable_y]
+                    variable_k = état["joueurs"][1]["pos"][0]
+                    variable_y = état["joueurs"][1]["pos"][1]
+                    variable_ky = [variable_k, variable_y-1]
                 try:
-                    Quoridor.placer_un_mur(Quoridor, 2, variable_ky, "MV")
+                    print(f"{variable_ky}  variable ky ligne 239")
+                    position, orientation = placer_un_mur(état, 2, variable_ky, "MV")
+                    return(position, orientation)
                 except QuoridorError:
                      variable_k = "ne peut pas mettre un mur"
 
@@ -260,35 +246,42 @@ def jouer_le_coup(self, joueur):
 
 
 
-            if self.état["joueurs"][0]["pos"][1] != x[1]:
-                variable_k = self.état["joueurs"][0]["pos"][0]
-                variable_y = self.état["joueurs"][0]["pos"][1]
-                variable_ky = [(variable_k-1), (variable_y+1)]
-                for i in self.état["murs"]["horizontaux"]:
+            if état["joueurs"][1]["pos"][1] != variable_x[1]:
+                variable_k = état["joueurs"][1]["pos"][0]
+                variable_y = état["joueurs"][1]["pos"][1]
+                variable_ky = [(variable_k-1), (variable_y)]
+                for i in état["murs"]["horizontaux"]:
 
-                    if i[1] == (variable_y + 1) and (i[0] + 2) == variable_k:
+                    if i[1] == (variable_y) and (i[0] + 2) == variable_k:
 
+                        
                         variable_ky = [variable_k, (variable_y+1)]
 
-                #pos = (list(self.état["joueurs"][0]["pos"]))
-                #self.état['murs']['verticaux'] += ([pos])
 
 
                 try:
-                    Quoridor.placer_un_mur(Quoridor, 2, variable_ky, "MH")
+                    print(f"{variable_ky} variable ky ligne 263")
+                    position, orientation = placer_un_mur(état, 2, variable_ky, "MH")
+                    return (position, orientation)
                 except QuoridorError:
                     variable_k = "ne peut pas mettre un mur"
 
             if variable_k == "ne peut pas mettre un mur":
-                mouvement_rapide_J2 = nx.shortest_path(graphe, tuple(self.état["joueurs"][1]["pos"]), 'B2')
-                self.état["joueurs"][1]["pos"] = list(mouvement_rapide_J2[1])
-                joueurs = self.état["joueurs"]
-                murs = self.état["murs"]
-                return (joueurs, murs)
+                mouvement_rapide_J1 = nx.shortest_path(graphe, tuple(état["joueurs"][0]["pos"]), 'B1')
+                print(f"{mouvement_rapide_J1} mouvement rapide J2 l-268")
+                position_mouv = list(mouvement_rapide_J1[1])
+                print(f"{position_mouv} position mouv l-271")
+                p = int(position_mouv[0])
+                w = int(position_mouv[1])
+                position = [p, w]
+                return (position, "D")
 
 
-def placer_un_mur(self, joueur, position, orientation):
+def placer_un_mur(état, joueur, position, orientation):
+        print(f"{position} position du placement l-281")
+        print(f"{orientation} orientation du placement l-292")
 
+        
         """Placer un mur.
 
         Pour le joueur spécifié, placer un mur à la position spécifiée.
@@ -304,39 +297,37 @@ def placer_un_mur(self, joueur, position, orientation):
             QuoridorError: La position est invalide pour cette orientation.
             QuoridorError: Le joueur a déjà placé tous ses murs.
         """
-        état = copy.deepcopy(self.état)
+        état = copy.deepcopy(état)
 
-        if joueur != 1 and joueur != 2:
-            raise QuoridorError("Le numéro du joueur est autre que 1 ou 2.")
-
-
-        for i in self.état["murs"]["horizontaux"]:
+        
+        for i in état["murs"]["horizontaux"]:
             if position[0] == i[0]+1 and position[1]+1 == i[1]:
                 raise QuoridorError("Un mur occupe déjà cette position.")
 
-        for i in self.état["murs"]["verticaux"]:
+        for i in état["murs"]["verticaux"]:
             if position[0] == i[0]-1 and position[1]-1 == i[1]:
                 raise QuoridorError("Un mur occupe déjà cette position.")
 
 
 
         if orientation == "MH":
-            for i in self.état["murs"]["horizontaux"]:
+            for i in état["murs"]["horizontaux"]:
                 if i[0]-1 == position[0] and i[1] == position[1]:
                     raise QuoridorError("Un mur occupe déjà cette position.")
 
         if orientation == "MV":
-            for i in self.état["murs"]["verticaux"]:
-                if i[0] == position[0] and (i[1]-1) == position[1]:
+            print(état["murs"]["verticaux"], 'ligne 319 état murs verticaux l-319')
+            for i in état["murs"]["verticaux"]:
+                if i[0] == position[0] and (i[1]+1) == position[1]:
                     raise QuoridorError("Un mur occupe déjà cette position.")
 
         if orientation == "MV":
-            for i in self.état["murs"]["verticaux"]:
+            for i in état["murs"]["verticaux"]:
                 if i == position:
                     raise QuoridorError("Un mur occupe déjà cette position.")
 
         if orientation == "MH":
-            for i in self.état["murs"]["horizontaux"]:
+            for i in état["murs"]["horizontaux"]:
                 if i == position:
                     raise QuoridorError("Un mur occupe déjà cette position.")
 
@@ -355,7 +346,7 @@ def placer_un_mur(self, joueur, position, orientation):
                 raise QuoridorError("La position d'un mur est invalide.")
 
 
-        if self.état["joueurs"][joueur-1]["murs"] <= 0:
+        if état["joueurs"][joueur-2]["murs"] <= 0:
             raise QuoridorError("Le joueur a déjà placé tous ses murs.")
 
 
@@ -376,30 +367,22 @@ def placer_un_mur(self, joueur, position, orientation):
 
 
 
-        if nx.has_path(graphe, tuple(état["joueurs"][0]["pos"]), 'B1') == False:
-
-            raise QuoridorError("La position du mur est invalide puisqu'elle enferme le joueur")
 
         if nx.has_path(graphe, tuple(état["joueurs"][1]["pos"]), 'B2') == False:
 
             raise QuoridorError("La position du mur est invalide puisqu'elle enferme le joueur")
 
-        if orientation == "MV":
-            self.état["murs"]["verticaux"] += [position]
-            self.état["joueurs"][joueur-1]["murs"] -=  1
+        #if orientation == "MV":
+            #état["murs"]["verticaux"] += [position]
+            #état["joueurs"][joueur-1]["murs"] -=  1
 
-        if orientation == "MH":
-            self.état["murs"]["horizontaux"] += [position]
-            self.état["joueurs"][joueur-1]["murs"] -=  1
+        #if orientation == "MH":
+            #état["murs"]["horizontaux"] += [position]
+            #état["joueurs"][joueur-1]["murs"] -=  1
 
 
-
-        if joueur == 1:
-            Quoridor.jouer_le_coup(Quoridor, 2)
-
-        joueurs = self.état["joueurs"]
-        murs = self.état["murs"]
-        return (joueurs, murs)
+        
+        return(position, orientation)
 
     
 

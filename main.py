@@ -7,6 +7,7 @@ from quoridor import Quoridor
 from utilitaire import analyser_commande, formater_les_parties
 from quoridor_serveur import formater_jeu, récupérer_le_coup, formater_les_parties
 import quoridor_serveur_vs_bot as Q_SvB
+import time
 
 # Mettre ici votre secret récupéré depuis le site de PAX
 secret = "07088f23-df64-4ff3-a352-08cb9a19158d"
@@ -21,7 +22,8 @@ if __name__ == "__main__":
             # Afficher la partie
             print(Q_SvB.formater_jeu(état))
             # Demander au joueur de choisir son prochain coup
-            type_coup, position = Q_SvB.récupérer_le_coup(état)
+            position, type_coup = Q_SvB.jouer_le_coup(état)
+            
             # Envoyez le coup au serveur
             id_partie, état = jouer_coup(
                 id_partie,
@@ -30,6 +32,8 @@ if __name__ == "__main__":
                 args.idul,
                 secret,
             )
+            time.sleep(1)
+
 
     if args.parties:
         parties = lister_parties(args.idul, secret)
