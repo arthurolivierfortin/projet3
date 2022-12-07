@@ -3,10 +3,17 @@ import turtle
 
 class QuoridorX(Quoridor):
     
+    def __init__(self):
+        self.fen = turtle.Screen()
+        self.fen.title("Quoridor phase 3")
+        self.fen.setup(width=800, height=600)
+        self.J1 = turtle.Turtle()
+        self.J2 = turtle.Turtle()
+        
     def graphique():
-        fen = turtle.Screen()
-        fen.title("Quorido phase 3")
-        fen.setup(width=800, height=600)
+        #fen = turtle.Screen()
+        #fen.title("Quorido phase 3")
+        #fen.setup(width=800, height=600)
         alex = turtle.Turtle()
         #création de l'arrière plan noir
         alex.penup()
@@ -596,29 +603,7 @@ class QuoridorX(Quoridor):
         charles.forward(5)
         charles.forward(50)
     
-    def positionnement_joueur(état):
-        print(état)
-        
-        #joueur
-        J1 = turtle.Turtle()
-        J1.penup()
-        J1.shape('turtle')
-        J1.color("blue")
-        J2 = turtle.Turtle()
-        J2.penup()
-        J2.shape('turtle')
-        J2.color("red")
-        #positionnement initial
-        
-        J1.right(90)
-        J1.forward(170)
-        J1.left(180)
-        
-        J2.left(90)
-        J2.forward(170)
-        J2.right(180)
-    
-    def légende_murs_départ(état):
+    def légende_murs_départ():
         Joe = turtle.Turtle()
         Joe.penup()
         Joe.shape('circle')
@@ -783,5 +768,32 @@ class QuoridorX(Quoridor):
             Joe.forward(10)
             Joe.left(90)
 
+   
 
-
+    def positionnement_joueur(self):
+ 
+        
+        #joueur
+        J1 = turtle.Turtle()
+        self.J1 = J1
+        self.J1.penup()
+        self.J1.shape('turtle')
+        self.J1.color("blue")
+        J2 = turtle.Turtle()
+        self.J2 = J2
+        self.J2.penup()
+        self.J2.shape('turtle')
+        self.J2.color("red")
+        #positionnement initial
+        
+        self.J1.right(90)
+        self.J1.forward(170)
+        self.J1.left(180)
+        
+        self.J2.left(90)
+        self.J2.forward(170)
+        self.J2.right(180)
+        
+    def déplacement_joueur(self, état):
+        
+   

@@ -59,24 +59,26 @@ if __name__ == "__main__":
             #joueurs, murs = Quoridor.jouer_le_coup(Quoridor, 2)
     
     if args.graphique:
-        joueurs = [{"nom": args.idul, "murs": 10, "pos": [5, 1]}, {"nom": 'automate', "murs": 10, "pos": [5, 9]}]
-        murs = {"horizontaux": [],
-        "verticaux": [],}
-        def jouer(joueurs, murs):
-            état = Quoridor.vérification(Quoridor, joueurs, murs)
+        # Implémenter la boucle pour jouer contre le bot du serveur
+        id_partie, état = débuter_partie(args.idul, secret)
+        while True:
             quoridorx.QuoridorX.graphique()
-            quoridorx.QuoridorX.positionnement_joueur(état)
-            quoridorx.QuoridorX.légende_murs_départ(état)
-            type_coup, position = Quoridor.récupérer_le_coup(Quoridor, 1)
+            quoridorx.QuoridorX.légende_murs_départ()
+            quoridorx.QuoridorX.positionnement_joueur(quoridorx.QuoridorX)
+            type_coup, position = récupérer_le_coup()
             if type_coup == 'D':
                 Quoridor.déplacer_jeton(Quoridor, 1, position)
             if type_coup == 'MH' or type_coup == 'MV':
                 joueurs, murs = Quoridor.placer_un_mur(Quoridor, 1, position, type_coup)
-            Quoridor.est_terminée(Quoridor)
-            #joueurs, murs = Quoridor.jouer_le_coup(Quoridor, 2)
+            id_partie, état = jouer_coup(
+            id_partie,
+            type_coup,
+            position,
+            args.idul,
+            secret,
+            )
 
-            jouer(joueurs, murs)
-        jouer(joueurs, murs)
+            jouer(état)
     else:
         # Implémenter la boucle pour jouer contre le bot du serveur
         id_partie, état = débuter_partie(args.idul, secret)
