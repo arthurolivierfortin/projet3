@@ -9,6 +9,8 @@ class QuoridorX(Quoridor):
         self.fen.setup(width=800, height=600)
         self.J1 = turtle.Turtle()
         self.J2 = turtle.Turtle()
+        self.M1 = turtle.Turtle()
+        self.M2 = turtle.Turtle()
         
     def graphique():
         #fen = turtle.Screen()
@@ -800,21 +802,23 @@ class QuoridorX(Quoridor):
         delta_y = état["joueurs"][0]["pos"][1] - position[1]
 
         if delta_y != 0:
-            if delta_y == 1:
-                self.J1.forward(40)
             if delta_y == -1:
+                self.J1.forward(40)
+            if delta_y == 1:
                 self.J1.right(180)
                 self.J1.forward(40)
                 self.J1.right(90)
 
         if delta_x != 0:
-            if delta_x == 1:
+            if delta_x == -1:
                 self.J1.right(90)
                 self.J1.forward(40)
                 self.J1.left(90)
                 
-            if delta_x == -1:
+            if delta_x == 1:
                 self.J1.left(90)
                 self.J1.forward(40)
-                self.J1.left(90)
+                self.J1.right(90)
+
+    def placement_mur(self, position, état)
    

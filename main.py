@@ -61,10 +61,14 @@ if __name__ == "__main__":
     if args.graphique:
         # Implémenter la boucle pour jouer contre le bot du serveur
         id_partie, état = débuter_partie(args.idul, secret)
+        quoridorx.QuoridorX.graphique()
+        quoridorx.QuoridorX.légende_murs_départ()
+        quoridorx.QuoridorX.positionnement_joueur(quoridorx.QuoridorX)
         while True:
-            quoridorx.QuoridorX.graphique()
-            quoridorx.QuoridorX.légende_murs_départ()
-            quoridorx.QuoridorX.positionnement_joueur(quoridorx.QuoridorX)
+
+            #quoridorx.QuoridorX.graphique()
+            #quoridorx.QuoridorX.légende_murs_départ()
+            #quoridorx.QuoridorX.positionnement_joueur(quoridorx.QuoridorX)
             type_coup, position = récupérer_le_coup()
             if type_coup == 'D':
                 quoridorx.QuoridorX.déplacement_joueur(quoridorx.QuoridorX, position, état)
@@ -78,7 +82,7 @@ if __name__ == "__main__":
             secret,
             )
 
-            jouer(état)
+        
     else:
         # Implémenter la boucle pour jouer contre le bot du serveur
         id_partie, état = débuter_partie(args.idul, secret)
