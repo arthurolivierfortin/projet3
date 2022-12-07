@@ -64,7 +64,8 @@ if __name__ == "__main__":
         "verticaux": [],}
         def jouer(joueurs, murs):
             état = Quoridor.vérification(Quoridor, joueurs, murs)
-            quoridorx.QuoridorX.graphique(état)
+            quoridorx.QuoridorX.graphique()
+            quoridorx.QuoridorX.positionnement_joueur(état)
             type_coup, position = Quoridor.récupérer_le_coup(Quoridor, 1)
             if type_coup == 'D':
                 Quoridor.déplacer_jeton(Quoridor, 1, position)

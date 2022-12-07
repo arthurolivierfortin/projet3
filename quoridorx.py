@@ -3,7 +3,7 @@ import turtle
 
 class QuoridorX(Quoridor):
     
-    def graphique(self):
+    def graphique():
         fen = turtle.Screen()
         fen.title("Quorido phase 3")
         fen.setup(width=800, height=600)
@@ -595,5 +595,26 @@ class QuoridorX(Quoridor):
         charles.left(90)
         charles.forward(5)
         charles.forward(50)
-
+    
+    def légende(état):
+        print(état)
+        
+        #joueur
+        J1 = turtle.Turtle()
+        J1.penup()
+        J1.shape('turtle')
+        J1.color("blue")
+        J2 = turtle.Turtle()
+        J2.penup()
+        J2.shape('turtle')
+        J2.color("red")
+        #positionnement initial
+        
+        J1.right(90)
+        J1.forward(170)
+        J1.left(180)
+        
+        J2.left(90)
+        J2.forward(170)
+        J2.right(180)
     
