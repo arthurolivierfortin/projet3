@@ -10,7 +10,10 @@ class QuoridorX(Quoridor):
         self.J1 = turtle.Turtle()
         self.J2 = turtle.Turtle()
         self.M1 = turtle.Turtle()
+        self.M1.shape("square")
         self.M2 = turtle.Turtle()
+        self.M1.forward(250)
+        self.M2.forward(250)
         
     def graphique():
         #fen = turtle.Screen()
@@ -820,5 +823,11 @@ class QuoridorX(Quoridor):
                 self.J1.forward(40)
                 self.J1.right(90)
 
-    def placement_mur(self, position, état)
+    def placement_mur(self, position, état, orientation):
+
+        if orientation == 'MV':
+            pass
+        if orientation == 'MH':
+            pass
+
    

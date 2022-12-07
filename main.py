@@ -73,7 +73,7 @@ if __name__ == "__main__":
             if type_coup == 'D':
                 quoridorx.QuoridorX.déplacement_joueur(quoridorx.QuoridorX, position, état)
             if type_coup == 'MH' or type_coup == 'MV':
-                joueurs, murs = Quoridor.placer_un_mur(Quoridor, 1, position, type_coup)
+                quoridorx.QuoridorX.placement_mur(quoridorx.QuoridorX, position, type_coup, état)
             id_partie, état = jouer_coup(
             id_partie,
             type_coup,
