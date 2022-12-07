@@ -9,6 +9,7 @@ class QuoridorX(Quoridor):
         fen.setup(width=800, height=600)
         alex = turtle.Turtle()
         #création de l'arrière plan noir
+        alex.penup()
         alex.speed("fast")
         alex.fillcolor("black")
         alex.begin_fill()
@@ -51,7 +52,6 @@ class QuoridorX(Quoridor):
         
 
         #point dans le jeu
-        
         clair.stamp()
         nombre_stamp = 1
         while nombre_stamp < 9:
@@ -69,4 +69,70 @@ class QuoridorX(Quoridor):
                 clair.forward(40)
                 clair.stamp()
 
-        
+        #chiffre de la grille
+        #positionnement de Charles
+        charles = turtle.Turtle()
+        charles.penup()
+        charles.color("black")
+        charles.right(90)
+        charles.forward(200)
+        charles.right(90)
+        charles.forward(220)
+        charles.right(90)
+        charles.forward(30)
+        #chiffre
+        #1        
+        charles.color("white")
+        charles.pendown()
+        charles.forward(20)
+        charles.color("black")
+        charles.penup()
+        charles.forward(20)
+        #2
+        charles.color("white")
+        charles.pendown()
+        charles.forward(20)
+        charles.penup()
+        charles.color("black")
+        charles.left(90)
+        charles.forward(10)
+        charles.left(90)
+        charles.forward(1)
+        charles.color("white")
+        charles.pendown()
+        charles.pendown()
+        charles.forward(20)
+        charles.penup()
+        charles.color("black")
+        charles.left(90)
+        charles.forward(10)
+        charles.left(90)
+        charles.forward(40)
+        #3
+        charles.color("white")
+        charles.pendown()
+        charles.forward(20)
+        charles.penup()
+        charles.color("black")
+        charles.left(90)
+        charles.forward(10)
+        charles.left(90)
+        charles.forward(1)
+        charles.color("white")
+        charles.pendown()
+        charles.forward(20)
+        charles.penup()
+        charles.color("black")
+        charles.right(90)
+        charles.forward(10)
+        charles.right(90)
+        charles.forward(1)
+        charles.color("white")
+        charles.pendown()
+        charles.forward(20)
+        charles.penup()
+        charles.color("black")
+        charles.right(90)
+        charles.forward(30)
+        charles.left(90)
+        charles.forward(20)
