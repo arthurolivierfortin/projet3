@@ -45,7 +45,7 @@ class QuoridorX(Quoridor):
         clair.forward(200)
         clair.left(90)
         clair.penup()
-        clair.forward(220)
+        clair.forward(200)
         clair.right(90)
         clair.shapesize(0.1)
         
@@ -65,6 +65,8 @@ class QuoridorX(Quoridor):
             clair.right(90)
            
             nombre_stamp +=1
-
+        for i in range(8):
+                clair.forward(40)
+                clair.stamp()
 
         
