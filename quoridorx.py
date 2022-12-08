@@ -954,11 +954,34 @@ class QuoridorX(Quoridor):
 
         if self.état["joueurs"][1]["pos"] != état["joueurs"][1]["pos"]:
             position_J2 = état["joueurs"][1]["pos"]
-            QuoridorX.déplacement_joueur2(QuoridorX, position_J2, état)
+            QuoridorX.déplacement_joueur2(QuoridorX, position_J2, self.état)
 
         if self.état["murs"]["verticaux"] != état["murs"]["verticaux"]:
             pass
 
         if self.état["murs"]["horizontaux"] != état["murs"]["horizontaux"]:
             pass
+
+    def déplacement_joueur2(self, position, état):
+        delta_x = état["joueurs"][1]["pos"][0] - position[0]
+        delta_y = état["joueurs"][1]["pos"][1] - position[1]
+
+        if delta_y != 0:
+            if delta_y == 1:
+                self.J2.forward(40)
+            if delta_y == -1:
+                self.J2.right(180)
+                self.J2.forward(40)
+                self.J2.right(90)
+
+        if delta_x != 0:
+            if delta_x == 1:
+                self.J2.right(90)
+                self.J2.forward(40)
+                self.J2.left(90)
+                
+            if delta_x == -1:
+                self.J2.left(90)
+                self.J2.forward(40)
+                self.J2.right(90)
    

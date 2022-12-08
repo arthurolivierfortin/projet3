@@ -71,10 +71,13 @@ if __name__ == "__main__":
             #quoridorx.QuoridorX.légende_murs_départ()
             #quoridorx.QuoridorX.positionnement_joueur(quoridorx.QuoridorX)
             print(formater_jeu(état))
-            type_coup, position = récupérer_le_coup()
-
             if joueur == 2:
                 quoridorx.QuoridorX.analyser_mouv_bot(quoridorx.QuoridorX, état)
+                joueur = 1
+                
+            type_coup, position = récupérer_le_coup()
+
+            
             if joueur == 1:
                 if type_coup == 'D':
                     quoridorx.QuoridorX.déplacement_joueur(quoridorx.QuoridorX, position, état)
