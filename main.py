@@ -64,24 +64,30 @@ if __name__ == "__main__":
         quoridorx.QuoridorX.graphique()
         quoridorx.QuoridorX.légende_murs_départ()
         quoridorx.QuoridorX.positionnement_joueur(quoridorx.QuoridorX)
-
+        joueur = 1
         while True:
 
             #quoridorx.QuoridorX.graphique()
             #quoridorx.QuoridorX.légende_murs_départ()
             #quoridorx.QuoridorX.positionnement_joueur(quoridorx.QuoridorX)
+            print(formater_jeu(état))
             type_coup, position = récupérer_le_coup()
-            if type_coup == 'D':
-                quoridorx.QuoridorX.déplacement_joueur(quoridorx.QuoridorX, position, état)
-            if type_coup == 'MH' or type_coup == 'MV':
-                quoridorx.QuoridorX.placement_mur(quoridorx.QuoridorX, position, type_coup, état)
-            id_partie, état = jouer_coup(
-            id_partie,
-            type_coup,
-            position,
-            args.idul,
-            secret,
-            )
+
+            if joueur == 2:
+                quoridorx.QuoridorX.analyser_mouv_bot(quoridorx.QuoridorX, état)
+            if joueur == 1:
+                if type_coup == 'D':
+                    quoridorx.QuoridorX.déplacement_joueur(quoridorx.QuoridorX, position, état)
+                if type_coup == 'MH' or type_coup == 'MV':
+                    quoridorx.QuoridorX.placement_mur(quoridorx.QuoridorX, position, type_coup, état)
+                id_partie, état = jouer_coup(
+                id_partie,
+                type_coup,
+                position,
+                args.idul,
+                secret,
+                )
+            joueur = 2
 
         
     else:

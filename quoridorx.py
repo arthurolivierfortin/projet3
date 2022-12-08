@@ -1,10 +1,13 @@
 from quoridor import Quoridor
 import turtle
+import copy 
+
+
 
 class QuoridorX(Quoridor):
     import turtle
     
-    def __init__(self, liste_MH, liste_MV):
+    def __init__(self, état):
         self.fen = turtle.Screen()
         self.fen.title("Quoridor phase 3")
         self.fen.setup(width=800, height=600)
@@ -15,9 +18,7 @@ class QuoridorX(Quoridor):
         self.M1.penup()
         self.M2 = turtle.Turtle()
         self.M2.penup()
-        self.liste_MH = liste_MH
-        self.liste_MV = liste_MV
-        
+        self.état = état
         
         
     def graphique():
@@ -838,11 +839,13 @@ class QuoridorX(Quoridor):
                 self.J1.forward(40)
                 self.J1.right(90)
 
-    def placement_mur(self, position, orientation, état, liste_MH, liste_MV):
-
+    def placement_mur(self, position, orientation, état):
+        print(état)
+        print("état ligne 846")
+        
         if orientation == 'MV':
             self.M1.penup()
-            print
+            print('???')
             self.M1.forward(250)
             self.M1.color('blue')
             self.M1.speed('normal')
@@ -883,7 +886,8 @@ class QuoridorX(Quoridor):
             self.M1.penup()
             self.M1.goto((250,0))
             self.M1.left(90)
-            
+            état['murs']['verticaux'] += [position]
+
         
       
 
@@ -934,8 +938,27 @@ class QuoridorX(Quoridor):
             self.M1.penup()
             self.M1.goto((250,0))
             self.M1.left(180)
+            état['murs']['horizontaux'] += [position]
             
         
-        
-        
+        print(état)
+        print("état ligne 947")
+        état = copy.deepcopy(état)
+        self.état = état
+    
+    def analyser_mouv_bot(self, état):
+        print(self.état)
+        print('ligne(951)')
+        print(état)
+        print('ligne(953)')
+
+        if self.état["joueurs"][1]["pos"] != état["joueurs"][1]["pos"]:
+            position_J2 = état["joueurs"][1]["pos"]
+            QuoridorX.déplacement_joueur2(QuoridorX, position_J2, état)
+
+        if self.état["murs"]["verticaux"] != état["murs"]["verticaux"]:
+            pass
+
+        if self.état["murs"]["horizontaux"] != état["murs"]["horizontaux"]:
+            pass
    
