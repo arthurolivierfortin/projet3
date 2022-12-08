@@ -16,7 +16,41 @@ if __name__ == "__main__":
     args = analyser_commande()
         
     if args.automatique and args.graphique:
-        pass
+        print('ligne 19')
+        # Implémenter la boucle pour jouer contre le bot du serveur
+        id_partie, état = débuter_partie(args.idul, secret)
+        quoridorx.QuoridorX.graphique()
+        quoridorx.QuoridorX.légende_murs_départ()
+        quoridorx.QuoridorX.positionnement_joueur(quoridorx.QuoridorX)
+        joueur = 1
+        while True:
+
+            #quoridorx.QuoridorX.graphique()
+            #quoridorx.QuoridorX.légende_murs_départ()
+            #quoridorx.QuoridorX.positionnement_joueur(quoridorx.QuoridorX)
+            print(formater_jeu(état))
+            if joueur == 2:
+                quoridorx.QuoridorX.analyser_mouv_bot(quoridorx.QuoridorX, état)
+                joueur = 1
+
+            position, type_coup = Q_SvB.jouer_le_coup(état)
+
+            
+            if joueur == 1:
+                if type_coup == 'D':
+                    quoridorx.QuoridorX.déplacement_joueur(quoridorx.QuoridorX, position, état)
+                if type_coup == 'MH' or type_coup == 'MV':
+                    quoridorx.QuoridorX.placement_mur(quoridorx.QuoridorX, position, type_coup, état, 1)
+                id_partie, état = jouer_coup(
+                id_partie,
+                type_coup,
+                position,
+                args.idul,
+                secret,
+                )
+            joueur = 2
+
+
     if args.automatique:
         # Implémenter la boucle pour jouer contre le bot du serveur
         id_partie, état = débuter_partie(args.idul, secret)
