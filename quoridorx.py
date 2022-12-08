@@ -843,12 +843,14 @@ class QuoridorX(Quoridor):
             self.M1.forward(250)
             self.M1.color('blue')
             self.M1.speed('normal')
+            
+            ### ne pas toucher
             if 1 <= position[0] < 5:
                 print("****")
                 déplacement = (5 - int(position[0]))*40
                 self.M1.forward(déplacement+20)
                 self.M1.right(90)
-              
+            ### ne pas toucher 
             if 1 <= position[1] < 5:
                 print("&&&&")
                 self.M1.right(180)
