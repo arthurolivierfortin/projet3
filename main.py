@@ -74,7 +74,7 @@ if __name__ == "__main__":
             if joueur == 2:
                 quoridorx.QuoridorX.analyser_mouv_bot(quoridorx.QuoridorX, état)
                 joueur = 1
-                
+
             type_coup, position = récupérer_le_coup()
 
             
@@ -82,7 +82,7 @@ if __name__ == "__main__":
                 if type_coup == 'D':
                     quoridorx.QuoridorX.déplacement_joueur(quoridorx.QuoridorX, position, état)
                 if type_coup == 'MH' or type_coup == 'MV':
-                    quoridorx.QuoridorX.placement_mur(quoridorx.QuoridorX, position, type_coup, état)
+                    quoridorx.QuoridorX.placement_mur(quoridorx.QuoridorX, position, type_coup, état, 1)
                 id_partie, état = jouer_coup(
                 id_partie,
                 type_coup,

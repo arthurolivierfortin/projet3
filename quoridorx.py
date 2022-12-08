@@ -838,8 +838,11 @@ class QuoridorX(Quoridor):
                 self.J1.left(90)
                 self.J1.forward(40)
                 self.J1.right(90)
+        
+        état = copy.deepcopy(état)
+        self.état = état
 
-    def placement_mur(self, position, orientation, état):
+    def placement_mur(self, position, orientation, état, joueur):
         print(état)
         print("état ligne 846")
         
@@ -847,7 +850,10 @@ class QuoridorX(Quoridor):
             self.M1.penup()
             print('???')
             self.M1.forward(250)
-            self.M1.color('blue')
+            if joueur == 1:
+                self.M1.color('blue')
+            if joueur == 2:
+                self.M1.color('red')
             self.M1.speed('normal')
             
             ### ne pas toucher
@@ -879,14 +885,15 @@ class QuoridorX(Quoridor):
                 déplacement = (5 - int(position[1]))*-40
                 self.M1.forward(déplacement-20)
 
-            self.M1.color('white')
+            
             self.M1.pendown()
             self.M1.forward(80)
-            self.M1.color('blue')
             self.M1.penup()
             self.M1.goto((250,0))
+            self.M1.color('white')
             self.M1.left(90)
-            état['murs']['verticaux'] += [position]
+            if joueur == 1:
+                état['murs']['verticaux'] += [position]
 
         
       
@@ -897,7 +904,10 @@ class QuoridorX(Quoridor):
             
             self.M1.penup()
             self.M1.forward(250)
-            self.M1.color('blue')
+            if joueur == 1:
+                self.M1.color('blue')
+            if joueur == 2:
+                self.M1.color('red')
             self.M1.speed('normal')
             
             ### ne pas toucher
@@ -931,14 +941,14 @@ class QuoridorX(Quoridor):
             
             
             self.M1.right(90)
-            self.M1.color('white')
             self.M1.pendown()
             self.M1.forward(80)
-            self.M1.color('blue')
             self.M1.penup()
             self.M1.goto((250,0))
+            self.M1.color('white')
             self.M1.left(180)
-            état['murs']['horizontaux'] += [position]
+            if joueur == 1:
+                état['murs']['horizontaux'] += [position]
             
         
         print(état)
@@ -957,12 +967,12 @@ class QuoridorX(Quoridor):
             QuoridorX.déplacement_joueur2(QuoridorX, position_J2, self.état)
 
         if self.état["murs"]["verticaux"] != état["murs"]["verticaux"]:
-            position_MV = état["murs"]["verticaux"][len(état["murs"]["verticaux"])]
-            QuoridorX.placement_mur(QuoridorX, position_MV, "MV", état)
+            position_MV = état["murs"]["verticaux"][len(état["murs"]["verticaux"])-1]
+            QuoridorX.placement_mur(QuoridorX, position_MV, "MV", état, 2)
 
         if self.état["murs"]["horizontaux"] != état["murs"]["horizontaux"]:
-            position_MH = état["murs"]["horizontaux"][len(état["murs"]["horizontaux"])]
-            QuoridorX.placement_mur(QuoridorX, position_MH, "MH", état)
+            position_MH = état["murs"]["horizontaux"][len(état["murs"]["horizontaux"])-1]
+            QuoridorX.placement_mur(QuoridorX, position_MH, "MH", état, 2)
 
     def déplacement_joueur2(self, position, état):
         delta_x = état["joueurs"][1]["pos"][0] - position[0]
@@ -986,4 +996,5 @@ class QuoridorX(Quoridor):
                 self.J2.left(90)
                 self.J2.forward(40)
                 self.J2.right(90)
+
    
