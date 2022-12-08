@@ -64,6 +64,7 @@ if __name__ == "__main__":
         quoridorx.QuoridorX.graphique()
         quoridorx.QuoridorX.légende_murs_départ()
         quoridorx.QuoridorX.positionnement_joueur(quoridorx.QuoridorX)
+
         while True:
 
             #quoridorx.QuoridorX.graphique()

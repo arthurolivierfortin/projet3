@@ -3,8 +3,8 @@ import turtle
 
 class QuoridorX(Quoridor):
     import turtle
-
-    def __init__(self):
+    
+    def __init__(self, liste_MH, liste_MV):
         self.fen = turtle.Screen()
         self.fen.title("Quoridor phase 3")
         self.fen.setup(width=800, height=600)
@@ -15,6 +15,9 @@ class QuoridorX(Quoridor):
         self.M1.penup()
         self.M2 = turtle.Turtle()
         self.M2.penup()
+        self.liste_MH = liste_MH
+        self.liste_MV = liste_MV
+        
         
         
     def graphique():
@@ -835,7 +838,7 @@ class QuoridorX(Quoridor):
                 self.J1.forward(40)
                 self.J1.right(90)
 
-    def placement_mur(self, position, orientation, état):
+    def placement_mur(self, position, orientation, état, liste_MH, liste_MV):
 
         if orientation == 'MV':
             self.M1.penup()
@@ -880,8 +883,12 @@ class QuoridorX(Quoridor):
             self.M1.penup()
             self.M1.goto((250,0))
             self.M1.left(90)
+            
+        
+      
 
-    
+
+
         if orientation == 'MH':
             
             self.M1.penup()
@@ -927,5 +934,8 @@ class QuoridorX(Quoridor):
             self.M1.penup()
             self.M1.goto((250,0))
             self.M1.left(180)
-
+            
+        
+        
+        
    
