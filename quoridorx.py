@@ -844,30 +844,33 @@ class QuoridorX(Quoridor):
             self.M1.color('blue')
             self.M1.speed('normal')
             if 1 <= position[0] < 5:
+                print("****")
                 déplacement = (5 - int(position[0]))*40
                 self.M1.forward(déplacement+20)
                 self.M1.right(90)
               
             if 1 <= position[1] < 5:
+                print("&&&&")
                 self.M1.right(180)
                 déplacement = (5 - int(position[1]))*40
-                self.M1.forward(déplacement)
-                self.M1.right(180)
+                self.M1.forward(déplacement+20)
+                self.M1.left(180)
                 
-            
-                if 9 >= position[0] > 5:
-                    déplacement = (5 - int(position[0]))*40
-                    self.M1.right(180)
-                    self.M1.forward(déplacement)
-                    self.M1.right(90)
-                if 9 >= position[1] > 5:
-                    self.M1.right(180)
-                    déplacement = (5 - int(position[0]))*40
-                    self.M1.forward(déplacement)
-                    self.M1.right(180)
+             
+            if 9 >= position[0] > 5:
+                print("mmmm")
+                déplacement = (5 - int(position[0]))*-40
+                self.M1.right(180)
+                self.M1.forward(déplacement-20)
+                self.M1.left(90)
+            if 9 >= position[1] > 5:
+                print("jjjjj")
+                déplacement = (5 - int(position[1]))*-40
+                self.M1.forward(déplacement-20)
+
             self.M1.color('white')
             self.M1.pendown()
-            self.M1.forward(100)
+            self.M1.forward(80)
             self.M1.color('blue')
             self.M1.penup()
             self.M1.goto((250,0))
@@ -875,38 +878,43 @@ class QuoridorX(Quoridor):
 
     
         if orientation == 'MH':
+            
             self.M1.penup()
             self.M1.forward(250)
             self.M1.color('blue')
             self.M1.speed('normal')
             if 1 <= position[0] < 5:
+                print('****')
                 déplacement = (5 - int(position[0]))*40
                 self.M1.forward(déplacement+20)
                 self.M1.right(90)
               
             if 1 <= position[1] < 5:
+                print('????')
                 self.M1.right(180)
                 déplacement = (5 - int(position[1]))*40
-                self.M1.forward(déplacement)
+                self.M1.forward(déplacement+20)
                 self.M1.right(180)
                 
             
-                if 9 >= position[0] > 5:
-                    déplacement = (5 - int(position[0]))*40
-                    self.M1.right(180)
-                    self.M1.forward(déplacement)
-                    self.M1.right(90)
-                if 9 >= position[1] > 5:
-                    self.M1.right(180)
-                    déplacement = (5 - int(position[0]))*40
-                    self.M1.forward(déplacement)
-                    self.M1.right(180)
+            if 9 >= position[0] > 5:
+                print('++++')
+                déplacement = (5 - int(position[0]))*-40
+                self.M1.right(180)
+                self.M1.forward(déplacement - 20)
+                self.M1.left(90)
+            if 9 >= position[1] > 5:
+                print('####')
+                déplacement = (5 - int(position[1]))*-40
+                self.M1.forward(déplacement)
+                self.M1.right(180)
+            self.M1.right(90)
             self.M1.color('white')
             self.M1.pendown()
-            self.M1.forward(100)
+            self.M1.forward(80)
             self.M1.color('blue')
             self.M1.penup()
             self.M1.goto((250,0))
-            self.M1.left(90)
+            self.M1.left(180)
 
    
