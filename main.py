@@ -15,7 +15,8 @@ secret = "07088f23-df64-4ff3-a352-08cb9a19158d"
 if __name__ == "__main__":
     args = analyser_commande()
         
-
+    if args.automatique and args.graphique:
+        pass
     if args.automatique:
         # Implémenter la boucle pour jouer contre le bot du serveur
         id_partie, état = débuter_partie(args.idul, secret)
