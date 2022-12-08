@@ -238,6 +238,8 @@ def jouer_le_coup(état):
                 try:
 
                     position, orientation = placer_un_mur(état, 2, variable_ky, "MV")
+                    print(position, orientation)
+                    print("ligne 266")
                     return(position, orientation)
                 except QuoridorError:
                      variable_k = "ne peut pas mettre un mur"
@@ -253,8 +255,6 @@ def jouer_le_coup(état):
                 for i in état["murs"]["horizontaux"]:
 
                     if i[1] == (variable_y) and (i[0] + 2) == variable_k:
-
-                        
                         variable_ky = [variable_k, (variable_y+1)]
 
 
@@ -262,6 +262,8 @@ def jouer_le_coup(état):
                 try:
 
                     position, orientation = placer_un_mur(état, 2, variable_ky, "MH")
+                    print(position, orientation)
+                    print("ligne 266")
                     return (position, orientation)
                 except QuoridorError:
                     variable_k = "ne peut pas mettre un mur"
@@ -274,6 +276,8 @@ def jouer_le_coup(état):
                 p = int(position_mouv[0])
                 w = int(position_mouv[1])
                 position = [p, w]
+                print(position)
+                print("ligne 266")
                 return (position, "D")
 
 
@@ -379,7 +383,7 @@ def placer_un_mur(état, joueur, position, orientation):
 
 
         
-        return(position, orientation)
+        return (position, orientation)
 
     
 
