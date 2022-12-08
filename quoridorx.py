@@ -852,7 +852,7 @@ class QuoridorX(Quoridor):
                 self.M1.right(90)
             
                 
-             
+            ### ne pas toucher 
             if 9 >= position[0] > 5:
                 print("mmmm")
                 déplacement = (5 - int(position[0]))*-40
@@ -867,7 +867,7 @@ class QuoridorX(Quoridor):
                 déplacement = (5 - int(position[1]))*40
                 self.M1.forward(déplacement+20)
                 self.M1.left(180)
-
+            ### ne pas toucher
             if 9 >= position[1] > 5:
                 print("jjjjj")
                 déplacement = (5 - int(position[1]))*-40
