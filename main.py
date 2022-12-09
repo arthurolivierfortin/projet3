@@ -9,6 +9,9 @@ from quoridor_serveur import formater_jeu, récupérer_le_coup, formater_les_par
 import quoridor_serveur_vs_bot as Q_SvB
 import time
 import quoridorx
+import quoridorx_serveur_vs_bot as QX_SvB
+
+
 # Mettre ici votre secret récupéré depuis le site de PAX
 secret = "07088f23-df64-4ff3-a352-08cb9a19158d"
 
@@ -30,17 +33,19 @@ if __name__ == "__main__":
             #quoridorx.QuoridorX.positionnement_joueur(quoridorx.QuoridorX)
             print(formater_jeu(état))
             if joueur == 2:
-                quoridorx.QuoridorX.analyser_mouv_bot(quoridorx.QuoridorX, état)
+                QX_SvB.QuoridorXA.analyser_mouv_bot(quoridorx.QuoridorX, état)
                 joueur = 1
+            time.sleep(0.5)
+            position, type_coup = QX_SvB.jouer_le_coup(état)
+            print(position, type_coup)
+            print("position, type_coup")
 
-            position, type_coup = Q_SvB.jouer_le_coup(état)
-
-            
+            time.sleep(1)
             if joueur == 1:
                 if type_coup == 'D':
-                    quoridorx.QuoridorX.déplacement_joueur(quoridorx.QuoridorX, position, état)
+                    QX_SvB.QuoridorXA.déplacement_joueur(quoridorx.QuoridorX, position, état)
                 if type_coup == 'MH' or type_coup == 'MV':
-                    quoridorx.QuoridorX.placement_mur(quoridorx.QuoridorX, position, type_coup, état, 1)
+                    QX_SvB.QuoridorXA.placement_mur(quoridorx.QuoridorX, position, type_coup, état, 1)
                 id_partie, état = jouer_coup(
                 id_partie,
                 type_coup,
@@ -49,9 +54,10 @@ if __name__ == "__main__":
                 secret,
                 )
             joueur = 2
+            time.sleep(0.5)
 
 
-    if args.automatique:
+    if args.automatique and not args.graphique:
         # Implémenter la boucle pour jouer contre le bot du serveur
         id_partie, état = débuter_partie(args.idul, secret)
         while True:
@@ -93,7 +99,7 @@ if __name__ == "__main__":
             Quoridor.est_terminée(Quoridor)
             #joueurs, murs = Quoridor.jouer_le_coup(Quoridor, 2)
     
-    if args.graphique:
+    if args.graphique and not args.automatique:
         # Implémenter la boucle pour jouer contre le bot du serveur
         id_partie, état = débuter_partie(args.idul, secret)
         quoridorx.QuoridorX.graphique()
