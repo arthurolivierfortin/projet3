@@ -9,7 +9,7 @@ from quoridor_serveur import formater_jeu, récupérer_le_coup, formater_les_par
 import quoridor_serveur_vs_bot as Q_SvB
 import time
 import quoridorx
-import quoridorx_serveur_vs_bot as QX_SvB
+
 
 
 # Mettre ici votre secret récupéré depuis le site de PAX
@@ -33,19 +33,19 @@ if __name__ == "__main__":
             #quoridorx.QuoridorX.positionnement_joueur(quoridorx.QuoridorX)
             print(formater_jeu(état))
             if joueur == 2:
-                QX_SvB.QuoridorXA.analyser_mouv_bot(quoridorx.QuoridorX, état)
+                quoridorx.QuoridorX.analyser_mouv_bot(quoridorx.QuoridorX, état)
                 joueur = 1
-            time.sleep(0.5)
-            position, type_coup = QX_SvB.jouer_le_coup(état)
+
+            position, type_coup = Q_SvB.jouer_le_coup(état)
             print(position, type_coup)
             print("position, type_coup")
 
-            time.sleep(1)
+
             if joueur == 1:
                 if type_coup == 'D':
-                    QX_SvB.QuoridorXA.déplacement_joueur(quoridorx.QuoridorX, position, état)
+                    quoridorx.QuoridorX.déplacement_joueur(quoridorx.QuoridorX, position, état)
                 if type_coup == 'MH' or type_coup == 'MV':
-                    QX_SvB.QuoridorXA.placement_mur(quoridorx.QuoridorX, position, type_coup, état, 1)
+                    quoridorx.QuoridorX.placement_mur(quoridorx.QuoridorX, position, type_coup, état, 1)
                 id_partie, état = jouer_coup(
                 id_partie,
                 type_coup,
@@ -54,7 +54,7 @@ if __name__ == "__main__":
                 secret,
                 )
             joueur = 2
-            time.sleep(0.5)
+
 
 
     if args.automatique and not args.graphique:

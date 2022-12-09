@@ -826,7 +826,7 @@ class QuoridorX(Quoridor):
             if delta_y == 1:
                 self.J1.right(180)
                 self.J1.forward(40)
-                self.J1.right(90)
+                self.J1.right(180)
 
         if delta_x != 0:
             if delta_x == -1:
@@ -856,8 +856,14 @@ class QuoridorX(Quoridor):
                 self.M1.color('red')
             self.M1.speed('normal')
             
+            if position[0] == 5 and position[1] == 5:
+                self.M1.forward(20)
+                self.M1.left(90)
+                self.M1.forward(20)
+                self.M1.left(180)
+
             ### ne pas toucher
-            if 1 <= position[0] < 5:
+            if 1 <= position[0] <= 5:
                 print("****")
                 déplacement = (5 - int(position[0]))*40
                 self.M1.forward(déplacement+20)
@@ -873,7 +879,7 @@ class QuoridorX(Quoridor):
                 self.M1.left(90)
 
             ### ne pas toucher 
-            if 1 <= position[1] < 5:
+            if 1 <= position[1] <= 5:
                 print("&&&&")
                 self.M1.right(180)
                 déplacement = (5 - int(position[1]))*40
@@ -909,9 +915,15 @@ class QuoridorX(Quoridor):
             if joueur == 2:
                 self.M1.color('red')
             self.M1.speed('normal')
+
+            if position[0] == 5 and position[1] == 5:
+                self.M1.forward(20)
+                self.M1.left(90)
+                self.M1.forward(20)
+                self.M1.left(180)
             
             ### ne pas toucher
-            if 1 <= position[0] < 5:
+            if 1 <= position[0] <= 5:
                 print('****')
                 déplacement = (5 - int(position[0]))*40
                 self.M1.forward(déplacement+20)
@@ -926,7 +938,7 @@ class QuoridorX(Quoridor):
                 self.M1.left(90)
             
             #### ne pas toucher
-            if 1 <= position[1] < 5:
+            if 1 <= position[1] <= 5:
                 print('????')
                 self.M1.right(180)
                 déplacement = (5 - int(position[1]))*40
@@ -984,7 +996,7 @@ class QuoridorX(Quoridor):
             if delta_y == -1:
                 self.J2.right(180)
                 self.J2.forward(40)
-                self.J2.right(90)
+                self.J2.right(180)
 
         if delta_x != 0:
             if delta_x == 1:
