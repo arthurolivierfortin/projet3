@@ -19,6 +19,8 @@ class QuoridorX(Quoridor):
         self.M2 = turtle.Turtle()
         self.M2.penup()
         self.état = état
+        self.effaceur_J1 = turtle.Turtle()
+        self.effaceur_J2 = turtle.Turtle()
         
         
     def graphique():
@@ -623,6 +625,7 @@ class QuoridorX(Quoridor):
         Joe.speed('fastest')
         Joe.pensize(1)
 
+
         #positionnement joueur1
         Joe.right(90)
         Joe.forward(250)
@@ -782,7 +785,24 @@ class QuoridorX(Quoridor):
    
 
     def positionnement_joueur(self):
- 
+        
+        #positionnement effaceurs
+        effaceur_J1 = turtle.Turtle()
+        effaceur_J2 = turtle.Turtle()
+        self.effaceur_J1 = effaceur_J1
+        self.effaceur_J2 = effaceur_J2
+        self.effaceur_J1.penup()
+        self.effaceur_J2.penup()
+        self.effaceur_J1.color('black')
+        self.effaceur_J2.color('black')
+        self.effaceur_J1.shapesize(0.5)
+        self.effaceur_J2.shapesize(0.5)
+        self.effaceur_J1.pensize(1)
+        self.effaceur_J2.pensize(1)
+        self.effaceur_J1.goto((-151, -250))
+        self.effaceur_J2.goto((-151, -276))
+        self.effaceur_J1.left(90)
+        self.effaceur_J2.left(90)
         #positionnement m1 et m2
         M1 = turtle.Turtle()
         self.M1 = M1
@@ -900,7 +920,28 @@ class QuoridorX(Quoridor):
             self.M1.left(90)
             if joueur == 1:
                 état['murs']['verticaux'] += [position]
-
+            
+            if joueur == 1:
+                self.effaceur_J1.left(90)
+                self.effaceur_J1.forward(10)
+                self.effaceur_J1.right(90)
+                self.effaceur_J1.pendown()
+                self.effaceur_J1.forward(20)
+                self.effaceur_J1.right(180)
+                self.effaceur_J1.forward(20)
+                self.effaceur_J1.right(180)
+                self.effaceur_J1.penup()
+            
+            if joueur == 2:
+                self.effaceur_J2.left(90)
+                self.effaceur_J2.forward(10)
+                self.effaceur_J2.right(90)
+                self.effaceur_J2.pendown()
+                self.effaceur_J2.forward(20)
+                self.effaceur_J2.right(180)
+                self.effaceur_J2.forward(20)
+                self.effaceur_J2.right(180)
+                self.effaceur_J2.penup()
         
       
 
@@ -962,6 +1003,27 @@ class QuoridorX(Quoridor):
             if joueur == 1:
                 état['murs']['horizontaux'] += [position]
             
+            if joueur == 1:
+                self.effaceur_J1.left(90)
+                self.effaceur_J1.forward(10)
+                self.effaceur_J1.right(90)
+                self.effaceur_J1.pendown()
+                self.effaceur_J1.forward(20)
+                self.effaceur_J1.right(180)
+                self.effaceur_J1.forward(20)
+                self.effaceur_J1.right(180)
+                self.effaceur_J1.penup()
+            
+            if joueur == 2:
+                self.effaceur_J2.left(90)
+                self.effaceur_J2.forward(10)
+                self.effaceur_J2.right(90)
+                self.effaceur_J2.pendown()
+                self.effaceur_J2.forward(20)
+                self.effaceur_J2.right(180)
+                self.effaceur_J2.forward(20)
+                self.effaceur_J2.right(180)
+                self.effaceur_J2.penup()
         
         print(état)
         print("état ligne 947")
