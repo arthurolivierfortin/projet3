@@ -84,10 +84,12 @@ class Quoridor:
         if type(joueurs) == dict:
 
             if joueurs[0]["murs"] < 0 or joueurs[0]["murs"] > 10:
-                raise QuoridorError("Le nombre de murs qu'un joueur peut placer est plus grand que 10, ou négatif.")
+                raise QuoridorError("""Le nombre de murs qu'un joueur peut placer est
+                plus grand que 10, ou négatif.""")
 
             elif joueurs[1]["murs"] < 0 or joueurs[1]["murs"] > 10:
-                raise QuoridorError("Le nombre de murs qu'un joueur peut placer est plus grand que 10, ou négatif.")
+                raise QuoridorError("""Le nombre de murs qu'un joueur peut placer est
+                plus grand que 10, ou négatif.""")
 
             elif joueurs[0]["pos"] != [5, 1] and joueurs[0]["pos"] != [5, 9] and murs == None:
                 raise QuoridorError("La position d'un joueur est invalide.")
@@ -331,6 +333,7 @@ class Quoridor:
             QuoridorError: La position est invalide pour l'état actuel du jeu.
         """
         Position1 = 0
+        référence = (self.état["joueurs"][joueur-1]["pos"][0]) + (self.état["joueurs"][joueur-1]["pos"][1])
         if joueur != 1 and joueur != 2:
             raise QuoridorError('Le numéro du joueur est autre que 1 ou 2.')
 
@@ -340,8 +343,8 @@ class Quoridor:
         if  position[1] > 9 or position[1] < 1:
             raise QuoridorError('La position est invalide (en dehors du damier).')
 
-        if position[0] + position[1] != (self.état["joueurs"][joueur-1]["pos"][0]) + (self.état["joueurs"][joueur-1]["pos"][1]) + 1:
-            if position[0] + position[1] != (self.état["joueurs"][joueur-1]["pos"][0]) + (self.état["joueurs"][joueur-1]["pos"][1]) - 1:
+        if position[0] + position[1] != référence + 1:
+            if position[0] + position[1] != référence - 1:
 
                 raise QuoridorError("La position est invalide pour l'état actuel du jeu.")
 
