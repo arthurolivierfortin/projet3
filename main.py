@@ -17,7 +17,7 @@ secret = "07088f23-df64-4ff3-a352-08cb9a19158d"
 
 if __name__ == "__main__":
     args = analyser_commande()
-        
+
     if args.automatique and args.graphique:
         print('ligne 19')
         # Implémenter la boucle pour jouer contre le bot du serveur
@@ -65,7 +65,7 @@ if __name__ == "__main__":
             print(Q_SvB.formater_jeu(état))
             # Demander au joueur de choisir son prochain coup
             position, type_coup = Q_SvB.jouer_le_coup(état)
-            
+
             # Envoyez le coup au serveur
             id_partie, état = jouer_coup(
                 id_partie,
@@ -81,7 +81,7 @@ if __name__ == "__main__":
         parties = lister_parties(args.idul, secret)
         print(formater_les_parties(parties))
 
-    
+
     if args.local:
         # Implémenter la boucle pour jouer contre votre bot en local
         joueurs = [{"nom": args.idul, "murs": 10, "pos": [5, 1]}, {"nom": 'automate', "murs": 10, "pos": [5, 9]}]
@@ -98,7 +98,7 @@ if __name__ == "__main__":
                 joueurs, murs = Quoridor.placer_un_mur(Quoridor, 1, position, type_coup)
             Quoridor.est_terminée(Quoridor)
             #joueurs, murs = Quoridor.jouer_le_coup(Quoridor, 2)
-    
+
     if args.graphique and not args.automatique:
         # Implémenter la boucle pour jouer contre le bot du serveur
         id_partie, état = débuter_partie(args.idul, secret)
@@ -118,7 +118,7 @@ if __name__ == "__main__":
 
             type_coup, position = récupérer_le_coup()
 
-            
+
             if joueur == 1:
                 if type_coup == 'D':
                     quoridorx.QuoridorX.déplacement_joueur(quoridorx.QuoridorX, position, état)
@@ -133,7 +133,7 @@ if __name__ == "__main__":
                 )
             joueur = 2
 
-        
+
     else:
         # Implémenter la boucle pour jouer contre le bot du serveur
         id_partie, état = débuter_partie(args.idul, secret)
