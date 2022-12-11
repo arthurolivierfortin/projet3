@@ -6,7 +6,8 @@ import copy
 
 class QuoridorX(Quoridor):
     import turtle
-    
+
+
     def __init__(self, état):
         self.fen = turtle.Screen()
         self.fen.title("Quoridor phase 3")
@@ -21,8 +22,8 @@ class QuoridorX(Quoridor):
         self.état = état
         self.effaceur_J1 = turtle.Turtle()
         self.effaceur_J2 = turtle.Turtle()
-        
-        
+
+
     def graphique():
         #fen = turtle.Screen()
         #fen.title("Quorido phase 3")
@@ -69,7 +70,7 @@ class QuoridorX(Quoridor):
         clair.forward(200)
         clair.right(90)
         clair.shapesize(0.1)
-        
+
 
         #point dans le jeu
         clair.stamp()
@@ -83,7 +84,7 @@ class QuoridorX(Quoridor):
                 clair.forward(40)
                 clair.stamp()
             clair.right(90)
-           
+
             nombre_stamp +=1
         for i in range(8):
                 clair.forward(40)
@@ -101,8 +102,8 @@ class QuoridorX(Quoridor):
         charles.right(90)
         charles.forward(30)
         #chiffre
-        #1 
-        charles.speed("fastest")       
+        #1
+        charles.speed("fastest")
         charles.color("white")
         charles.pendown()
         charles.forward(20)
@@ -157,7 +158,6 @@ class QuoridorX(Quoridor):
         charles.left(90)
         charles.forward(20)
         #4
-        
         charles.right(14)
         charles.color("white")
         charles.pendown()
@@ -180,9 +180,8 @@ class QuoridorX(Quoridor):
         charles.color("black")
         charles.right(90)
         charles.forward(10)
-        charles.left(90)       
+        charles.left(90)
         charles.forward(20)
-        
         #5
         charles.right(14)
         charles.color("white")
@@ -350,18 +349,12 @@ class QuoridorX(Quoridor):
         charles.forward(5)
         charles.left(90)
         charles.forward(60)
-
-        
-        
-        
-        
-        
         #horizontal
         charles.right(90)
         charles.forward(66)
         charles.left(90)
         #chiffre
-        #1 
+        #1
         charles.color("white")
         charles.pendown()
         charles.forward(20)
@@ -425,7 +418,6 @@ class QuoridorX(Quoridor):
         charles.forward(38)
         charles.left(90)
         #4
-        
         charles.right(14)
         charles.color("white")
         charles.pendown()
@@ -449,10 +441,9 @@ class QuoridorX(Quoridor):
         charles.left(90)
         charles.penup()
         charles.color("black")
-        charles.forward(10)      
+        charles.forward(10)
         charles.forward(37)
         charles.left(90)
-        
         #5
         charles.right(14)
         charles.color("white")
@@ -615,7 +606,8 @@ class QuoridorX(Quoridor):
         charles.left(90)
         charles.forward(5)
         charles.forward(50)
-    
+
+
     def légende_murs_départ():
         Joe = turtle.Turtle()
         Joe.penup()
@@ -624,15 +616,12 @@ class QuoridorX(Quoridor):
         Joe.color('black')
         Joe.speed('fastest')
         Joe.pensize(1)
-
-
         #positionnement joueur1
         Joe.right(90)
         Joe.forward(250)
         Joe.right(90)
         Joe.forward(300)
         Joe.right(90)
-
         #Mur
         #M
         Joe.pendown()
@@ -690,7 +679,6 @@ class QuoridorX(Quoridor):
         Joe.left(90)
         Joe.forward(10)
         Joe.left(90)
-        
         #Murs
         for i in range(10):
             Joe.pendown()
@@ -703,15 +691,13 @@ class QuoridorX(Quoridor):
             Joe.left(90)
             Joe.forward(10)
             Joe.left(90)
-
         #positionnement joueur2
         Joe.left(90)
         Joe.forward(149.071)
         Joe.left(90)
         Joe.forward(25)
         Joe.left(180)
-
- #Mur
+#Mur
         #M
         Joe.pendown()
         Joe.color('red')
@@ -768,7 +754,6 @@ class QuoridorX(Quoridor):
         Joe.left(90)
         Joe.forward(10)
         Joe.left(90)
-        
         #Murs
         for i in range(10):
             Joe.pendown()
@@ -782,10 +767,8 @@ class QuoridorX(Quoridor):
             Joe.forward(10)
             Joe.left(90)
 
-   
 
     def positionnement_joueur(self):
-        
         #positionnement effaceurs
         effaceur_J1 = turtle.Turtle()
         effaceur_J2 = turtle.Turtle()
@@ -826,17 +809,15 @@ class QuoridorX(Quoridor):
         self.J2.shape('turtle')
         self.J2.color("red")
         #positionnement initial
-        
         self.J1.right(90)
         self.J1.forward(170)
         self.J1.left(180)
-        
         self.J2.left(90)
         self.J2.forward(170)
         self.J2.right(180)
-        
+
+
     def déplacement_joueur(self, position, état):
-        
         delta_x = état["joueurs"][0]["pos"][0] - position[0]
         delta_y = état["joueurs"][0]["pos"][1] - position[1]
 
@@ -853,19 +834,20 @@ class QuoridorX(Quoridor):
                 self.J1.right(90)
                 self.J1.forward(40)
                 self.J1.left(90)
-                
+
             if delta_x == 1:
                 self.J1.left(90)
                 self.J1.forward(40)
                 self.J1.right(90)
-        
+
         état = copy.deepcopy(état)
         self.état = état
+
 
     def placement_mur(self, position, orientation, état, joueur):
         print(état)
         print("état ligne 846")
-        
+
         if orientation == 'MV':
             self.M1.penup()
             print('???')
@@ -875,30 +857,26 @@ class QuoridorX(Quoridor):
             if joueur == 2:
                 self.M1.color('red')
             self.M1.speed('normal')
-            
+
             if position[0] == 5 and position[1] == 5:
                 self.M1.forward(20)
                 self.M1.left(90)
                 self.M1.forward(20)
                 self.M1.left(180)
-
             ### ne pas toucher
             if 1 <= position[0] <= 5:
                 print("****")
                 déplacement = (5 - int(position[0]))*40
                 self.M1.forward(déplacement+20)
                 self.M1.right(90)
-            
-                
-            ### ne pas toucher 
+            ### ne pas toucher
             if 9 >= position[0] > 5:
                 print("mmmm")
                 déplacement = (5 - int(position[0]))*-40
                 self.M1.right(180)
                 self.M1.forward(déplacement-20)
                 self.M1.left(90)
-
-            ### ne pas toucher 
+            ### ne pas toucher
             if 1 <= position[1] <= 5:
                 print("&&&&")
                 self.M1.right(180)
@@ -911,7 +889,6 @@ class QuoridorX(Quoridor):
                 déplacement = (5 - int(position[1]))*-40
                 self.M1.forward(déplacement-20)
 
-            
             self.M1.pendown()
             self.M1.forward(80)
             self.M1.penup()
@@ -920,7 +897,7 @@ class QuoridorX(Quoridor):
             self.M1.left(90)
             if joueur == 1:
                 état['murs']['verticaux'] += [position]
-            
+
             if joueur == 1:
                 self.effaceur_J1.left(90)
                 self.effaceur_J1.forward(10)
@@ -931,7 +908,7 @@ class QuoridorX(Quoridor):
                 self.effaceur_J1.forward(20)
                 self.effaceur_J1.right(180)
                 self.effaceur_J1.penup()
-            
+
             if joueur == 2:
                 self.effaceur_J2.left(90)
                 self.effaceur_J2.forward(10)
@@ -942,13 +919,9 @@ class QuoridorX(Quoridor):
                 self.effaceur_J2.forward(20)
                 self.effaceur_J2.right(180)
                 self.effaceur_J2.penup()
-        
-      
-
-
 
         if orientation == 'MH':
-            
+
             self.M1.penup()
             self.M1.forward(250)
             if joueur == 1:
@@ -962,22 +935,19 @@ class QuoridorX(Quoridor):
                 self.M1.left(90)
                 self.M1.forward(20)
                 self.M1.left(180)
-            
             ### ne pas toucher
             if 1 <= position[0] <= 5:
                 print('****')
                 déplacement = (5 - int(position[0]))*40
                 self.M1.forward(déplacement+20)
                 self.M1.right(90)
-              
-                
+
             if 9 >= position[0] > 5:
                 print("mmmm")
                 déplacement = (5 - int(position[0]))*-40
                 self.M1.right(180)
                 self.M1.forward(déplacement-20)
                 self.M1.left(90)
-            
             #### ne pas toucher
             if 1 <= position[1] <= 5:
                 print('????')
@@ -985,14 +955,12 @@ class QuoridorX(Quoridor):
                 déplacement = (5 - int(position[1]))*40
                 self.M1.forward(déplacement+20)
                 self.M1.right(180)
-            
 
             if 9 >= position[1] > 5:
                 print("jjjjj")
                 déplacement = (5 - int(position[1]))*-40
                 self.M1.forward(déplacement-20)
-            
-            
+
             self.M1.right(90)
             self.M1.pendown()
             self.M1.forward(80)
@@ -1002,7 +970,7 @@ class QuoridorX(Quoridor):
             self.M1.left(180)
             if joueur == 1:
                 état['murs']['horizontaux'] += [position]
-            
+
             if joueur == 1:
                 self.effaceur_J1.left(90)
                 self.effaceur_J1.forward(10)
@@ -1013,7 +981,7 @@ class QuoridorX(Quoridor):
                 self.effaceur_J1.forward(20)
                 self.effaceur_J1.right(180)
                 self.effaceur_J1.penup()
-            
+
             if joueur == 2:
                 self.effaceur_J2.left(90)
                 self.effaceur_J2.forward(10)
@@ -1024,12 +992,12 @@ class QuoridorX(Quoridor):
                 self.effaceur_J2.forward(20)
                 self.effaceur_J2.right(180)
                 self.effaceur_J2.penup()
-        
+
         print(état)
         print("état ligne 947")
         état = copy.deepcopy(état)
         self.état = état
-    
+
     def analyser_mouv_bot(self, état):
         print(self.état)
         print('ligne(951)')
@@ -1065,10 +1033,8 @@ class QuoridorX(Quoridor):
                 self.J2.right(90)
                 self.J2.forward(40)
                 self.J2.left(90)
-                
+
             if delta_x == -1:
                 self.J2.left(90)
                 self.J2.forward(40)
                 self.J2.right(90)
-
-   
