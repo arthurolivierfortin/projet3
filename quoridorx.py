@@ -847,7 +847,7 @@ class QuoridorX(Quoridor):
     def placement_mur(self, position, orientation, état, joueur):
         print(état)
         print("état ligne 846")
-
+        
         if orientation == 'MV':
             self.M1.penup()
             print('???')
@@ -857,26 +857,32 @@ class QuoridorX(Quoridor):
             if joueur == 2:
                 self.M1.color('red')
             self.M1.speed('normal')
+            
+            #if position[0] == 5 and position[1] == 5:
+                #self.M1.forward(20)
+                #self.M1.left(90)
+                #self.M1.forward(20)
+                #self.M1.left(180)
 
-            if position[0] == 5 and position[1] == 5:
-                self.M1.forward(20)
-                self.M1.left(90)
-                self.M1.forward(20)
-                self.M1.left(180)
             ### ne pas toucher
+          
             if 1 <= position[0] <= 5:
                 print("****")
                 déplacement = (5 - int(position[0]))*40
                 self.M1.forward(déplacement+20)
                 self.M1.right(90)
-            ### ne pas toucher
+        
+            
+            ### ne pas toucher 
             if 9 >= position[0] > 5:
                 print("mmmm")
                 déplacement = (5 - int(position[0]))*-40
                 self.M1.right(180)
                 self.M1.forward(déplacement-20)
                 self.M1.left(90)
-            ### ne pas toucher
+                
+
+            ### ne pas toucher 
             if 1 <= position[1] <= 5:
                 print("&&&&")
                 self.M1.right(180)
@@ -889,6 +895,7 @@ class QuoridorX(Quoridor):
                 déplacement = (5 - int(position[1]))*-40
                 self.M1.forward(déplacement-20)
 
+            
             self.M1.pendown()
             self.M1.forward(80)
             self.M1.penup()
@@ -897,7 +904,7 @@ class QuoridorX(Quoridor):
             self.M1.left(90)
             if joueur == 1:
                 état['murs']['verticaux'] += [position]
-
+                
             if joueur == 1:
                 self.effaceur_J1.left(90)
                 self.effaceur_J1.forward(10)
@@ -908,7 +915,7 @@ class QuoridorX(Quoridor):
                 self.effaceur_J1.forward(20)
                 self.effaceur_J1.right(180)
                 self.effaceur_J1.penup()
-
+            
             if joueur == 2:
                 self.effaceur_J2.left(90)
                 self.effaceur_J2.forward(10)
@@ -919,9 +926,13 @@ class QuoridorX(Quoridor):
                 self.effaceur_J2.forward(20)
                 self.effaceur_J2.right(180)
                 self.effaceur_J2.penup()
+        
+      
+
+
 
         if orientation == 'MH':
-
+            
             self.M1.penup()
             self.M1.forward(250)
             if joueur == 1:
@@ -930,24 +941,28 @@ class QuoridorX(Quoridor):
                 self.M1.color('red')
             self.M1.speed('normal')
 
-            if position[0] == 5 and position[1] == 5:
-                self.M1.forward(20)
-                self.M1.left(90)
-                self.M1.forward(20)
-                self.M1.left(180)
+            #if position[0] == 5 and position[1] == 5:
+                #self.M1.forward(20)
+                #self.M1.left(90)
+                #self.M1.forward(20)
+                #self.M1.left(180)
+            
+            
             ### ne pas toucher
             if 1 <= position[0] <= 5:
                 print('****')
                 déplacement = (5 - int(position[0]))*40
                 self.M1.forward(déplacement+20)
                 self.M1.right(90)
-
+            
+                
             if 9 >= position[0] > 5:
                 print("mmmm")
                 déplacement = (5 - int(position[0]))*-40
                 self.M1.right(180)
                 self.M1.forward(déplacement-20)
                 self.M1.left(90)
+            
             #### ne pas toucher
             if 1 <= position[1] <= 5:
                 print('????')
@@ -955,12 +970,14 @@ class QuoridorX(Quoridor):
                 déplacement = (5 - int(position[1]))*40
                 self.M1.forward(déplacement+20)
                 self.M1.right(180)
+            
 
             if 9 >= position[1] > 5:
                 print("jjjjj")
                 déplacement = (5 - int(position[1]))*-40
                 self.M1.forward(déplacement-20)
-
+            
+            
             self.M1.right(90)
             self.M1.pendown()
             self.M1.forward(80)
@@ -970,7 +987,7 @@ class QuoridorX(Quoridor):
             self.M1.left(180)
             if joueur == 1:
                 état['murs']['horizontaux'] += [position]
-
+                
             if joueur == 1:
                 self.effaceur_J1.left(90)
                 self.effaceur_J1.forward(10)
@@ -981,7 +998,7 @@ class QuoridorX(Quoridor):
                 self.effaceur_J1.forward(20)
                 self.effaceur_J1.right(180)
                 self.effaceur_J1.penup()
-
+            
             if joueur == 2:
                 self.effaceur_J2.left(90)
                 self.effaceur_J2.forward(10)
@@ -992,7 +1009,7 @@ class QuoridorX(Quoridor):
                 self.effaceur_J2.forward(20)
                 self.effaceur_J2.right(180)
                 self.effaceur_J2.penup()
-
+        
         print(état)
         print("état ligne 947")
         état = copy.deepcopy(état)

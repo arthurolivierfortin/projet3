@@ -28,9 +28,7 @@ if __name__ == "__main__":
         joueur = 1
         while True:
 
-            #quoridorx.QuoridorX.graphique()
-            #quoridorx.QuoridorX.légende_murs_départ()
-            #quoridorx.QuoridorX.positionnement_joueur(quoridorx.QuoridorX)
+            
             print(formater_jeu(état))
             if joueur == 2:
                 quoridorx.QuoridorX.analyser_mouv_bot(quoridorx.QuoridorX, état)
