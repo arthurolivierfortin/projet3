@@ -2,12 +2,12 @@
 
 Ce programme permet de joueur au jeu Quoridor.
 """
+import time
 from api import débuter_partie, jouer_coup, lister_parties
 from quoridor import Quoridor
 from utilitaire import analyser_commande, formater_les_parties
 from quoridor_serveur import formater_jeu, récupérer_le_coup, formater_les_parties
 import quoridor_serveur_vs_bot as Q_SvB
-import time
 import quoridorx
 
 
@@ -28,7 +28,6 @@ if __name__ == "__main__":
         joueur = 1
         while True:
 
-            
             print(formater_jeu(état))
             if joueur == 2:
                 quoridorx.QuoridorX.analyser_mouv_bot(quoridorx.QuoridorX, état)
@@ -42,7 +41,7 @@ if __name__ == "__main__":
             if joueur == 1:
                 if type_coup == 'D':
                     quoridorx.QuoridorX.déplacement_joueur(quoridorx.QuoridorX, position, état)
-                if type_coup == 'MH' or type_coup == 'MV':
+                if type_coup in ('MH', 'MV'):
                     quoridorx.QuoridorX.placement_mur(quoridorx.QuoridorX, position, type_coup, état, 1)
                 id_partie, état = jouer_coup(
                 id_partie,
@@ -92,7 +91,7 @@ if __name__ == "__main__":
             type_coup, position = Quoridor.récupérer_le_coup(Quoridor, 1)
             if type_coup == 'D':
                 Quoridor.déplacer_jeton(Quoridor, 1, position)
-            if type_coup == 'MH' or type_coup == 'MV':
+            if type_coup in ('MH', 'MV'):
                 joueurs, murs = Quoridor.placer_un_mur(Quoridor, 1, position, type_coup)
             Quoridor.est_terminée(Quoridor)
             #joueurs, murs = Quoridor.jouer_le_coup(Quoridor, 2)
@@ -120,7 +119,7 @@ if __name__ == "__main__":
             if joueur == 1:
                 if type_coup == 'D':
                     quoridorx.QuoridorX.déplacement_joueur(quoridorx.QuoridorX, position, état)
-                if type_coup == 'MH' or type_coup == 'MV':
+                if type_coup in ('MH', 'MV'):
                     quoridorx.QuoridorX.placement_mur(quoridorx.QuoridorX, position, type_coup, état, 1)
                 id_partie, état = jouer_coup(
                 id_partie,

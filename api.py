@@ -11,7 +11,9 @@ Functions:
 """
 
 import requests
+
 BASE_URL = 'https://pax.ulaval.ca/quoridor/api/v2/'
+
 
 def lister_parties(idul, secret):
     """Lister les parties
@@ -30,24 +32,24 @@ def lister_parties(idul, secret):
              après avoir décodé le json de sa réponse.
     """
 
-    rep = requests.get(BASE_URL+'parties', auth=(idul, secret))
+    rep = requests.get(BASE_URL + 'parties', auth=(idul, secret))
 
     if rep.status_code == 200:
         # la requête s'est déroulée normalement;
         # décoder le JSON et afficher la liste de parties
         rep = rep.json()
-        return(rep)
+        return rep
 
     if rep.status_code == 401:
         # Votre requête est invalide;
         # décoder le JSON et afficher le message d'erreur
         rep = rep.json()
-        raise PermissionError (rep[1])
+        raise PermissionError(rep[1])
 
     if rep.status_code == 406:
         # Votre requête est invalide;
         # décoder le JSON et afficher le message d'erreur
-        raise RuntimeError (rep[1])
+        raise RuntimeError(rep[1])
 
         # Une erreur inattendue est survenue
     raise ConnectionError
@@ -71,28 +73,25 @@ def débuter_partie(idul, secret):
             le JSON de sa réponse.
     """
 
-    rep = requests.post(BASE_URL+'partie', auth=(idul, secret))
-
+    rep = requests.post(BASE_URL + 'partie', auth=(idul, secret))
 
     if rep.status_code == 200:
         # la requête s'est déroulée normalement;
         # décoder le JSON et afficher la liste de parties
         rep = rep.json()
-        return(rep['id'], rep['état'])
+        return (rep['id'], rep['état'])
     if rep.status_code == 401:
         # Votre requête est invalide;
         # décoder le JSON et afficher le message d'erreur
         rep = rep.json()
-        raise PermissionError (rep[1])
+        raise PermissionError(rep[1])
 
     if rep.status_code == 406:
         # Votre requête est invalide;
         # décoder le JSON et afficher le message d'erreur
-        raise RuntimeError (rep[1])
+        raise RuntimeError(rep[1])
         # Une erreur inattendue est survenue
     raise ConnectionError
-
-
 
 
 def récupérer_partie(id_partie, idul, secret):
@@ -114,25 +113,25 @@ def récupérer_partie(id_partie, idul, secret):
             le JSON de sa réponse.
     """
 
-    rep = requests.get(BASE_URL+'parties/'+f'<{id_partie}>', auth=(idul, secret))
+    rep = requests.get(BASE_URL + 'parties/' + f'<{id_partie}>', auth=(idul, secret))
 
     if rep.status_code == 401:
         # Votre requête est invalide;
         # décoder le JSON et afficher le message d'erreur
         rep = rep.json()
-        raise PermissionError (rep[1])
+        raise PermissionError(rep[1])
 
-    elif rep.status_code == 406:
+    if rep.status_code == 406:
         # Votre requête est invalide;
         # décoder le JSON et afficher le message d'erreur
-        raise RuntimeError (rep[1])
+        raise RuntimeError(rep[1])
 
-
-    elif rep.status_code != 406 and rep.status_code != 200 and rep.status_code != 401 :
+    if rep.status_code not in (406, 200, 401):
         # Une erreur inattendue est survenue
         raise ConnectionError
 
-    return(rep['id'], rep['état'], rep['gagnant'])
+    return rep['id'], rep['état'], rep['gagnant']
+
 
 def jouer_coup(id_partie, type_coup, position, idul, secret):
     """Jouer un coup
@@ -159,31 +158,30 @@ def jouer_coup(id_partie, type_coup, position, idul, secret):
             le JSON de sa réponse.
     """
 
-    rep = requests.put(BASE_URL+'jouer', auth=(idul, secret),json={
+    rep = requests.put(BASE_URL + 'jouer', auth=(idul, secret), json={
         "id": id_partie,
         "type": type_coup,
-        "pos": position,})
+        "pos": position, })
 
     rep.json()
-
 
     if rep.status_code == 401:
         # Votre requête est invalide;
         # décoder le JSON et afficher le message d'erreur
         rep = rep.json()
-        raise PermissionError (rep['message'])
+        raise PermissionError(rep['message'])
 
-    elif rep.status_code == 406:
+    if rep.status_code == 406:
         # Votre requête est invalide;
         # décoder le JSON et afficher le message d'erreur
         rep = rep.json()
-        raise RuntimeError (rep['message'])
+        raise RuntimeError(rep['message'])
 
-    elif rep.status_code != 406 and rep.status_code != 200 and rep.status_code != 401 :
+    if rep.status_code not in (406, 200, 401):
         # Une erreur inattendue est survenue
         raise ConnectionError
-    else:
-        rep = rep.json()
-        if (rep['gagnant']) != None:
-            raise StopIteration (rep['gagnant'])
-        return(rep['id'], rep['état'])
+
+    rep = rep.json()
+    if (rep['gagnant']) is not None:
+        raise StopIteration(rep['gagnant'])
+    return (rep['id'], rep['état'])

@@ -5,15 +5,13 @@ Classes:
 """
 from copy import deepcopy
 
-from quoridor_error import QuoridorError
-
-from graphe import construire_graphe
+import copy
 
 import networkx as nx
 
-import copy
+from quoridor_error import QuoridorError
 
-# TODO : créer le fichier quoridor_error.py contenant la classe QuoridorError
+from graphe import construire_graphe
 
 
 class Quoridor:
@@ -76,57 +74,53 @@ class Quoridor:
             raise QuoridorError("L'argument 'joueurs' n'est pas itérable.")
 
         if len(joueurs) > 2:
-                raise QuoridorError("L'itérable de joueurs en contient un nombre différent de deux.")
+            raise QuoridorError("L'itérable de joueurs en contient un nombre différent de deux.")
 
-
-
-
-        if type(joueurs) == dict:
+        if isinstance(joueurs, dict):
 
             if joueurs[0]["murs"] < 0 or joueurs[0]["murs"] > 10:
                 raise QuoridorError("""Le nombre de murs qu'un joueur peut placer est
                 plus grand que 10, ou négatif.""")
 
-            elif joueurs[1]["murs"] < 0 or joueurs[1]["murs"] > 10:
+            if joueurs[1]["murs"] < 0 or joueurs[1]["murs"] > 10:
                 raise QuoridorError("""Le nombre de murs qu'un joueur peut placer est
                 plus grand que 10, ou négatif.""")
 
-            elif joueurs[0]["pos"] != [5, 1] and joueurs[0]["pos"] != [5, 9] and murs == None:
+            if joueurs[0]["pos"] != [5, 1] and joueurs[0]["pos"] != [5, 9] and murs is None:
                 raise QuoridorError("La position d'un joueur est invalide.")
 
-            elif joueurs[1]["pos"] != [5, 1] and joueurs[1]["pos"] != [5, 9] and murs == None:
+            if joueurs[1]["pos"] != [5, 1] and joueurs[1]["pos"] != [5, 9] and murs is None:
                 raise QuoridorError("La position d'un joueur est invalide.")
 
-        if murs == None:
-            murs = {"horizontaux": [], "verticaux": [],}
+        if murs is None:
+            murs = {"horizontaux": [], "verticaux": [], }
 
-        if murs != None:
-            if type(murs) != dict:
+        if murs is not None:
+            if not isinstance(murs, dict):
                 raise QuoridorError("L'argument 'murs' n'est pas un dictionnaire lorsque présent.")
 
-            if type[joueurs[0]] == dict:
-                if len(murs["horizontaux"]) + len(murs["verticaux"]) + (joueurs[0]['murs']) + (joueurs[1]['murs']) != 20:
+            if isinstance(joueurs[0], dict):
+                if len(murs["horizontaux"]) + len(murs["verticaux"]) + \
+                        (joueurs[0]['murs']) + (joueurs[1]['murs']) != 20:
                     raise QuoridorError("QuoridorError: Le total des murs placés et plaçables n'est pas égal à 20.")
 
             for i in murs["horizontaux"]:
-                if (1 <= i[0] <= 8) == False:
+                if (1 <= i[0] <= 8) is False:
                     raise QuoridorError("La position d'un mur est invalide.")
 
-                elif (2 <= i[1] <= 9) == False:
+                if (2 <= i[1] <= 9) is False:
                     raise QuoridorError("La position d'un mur est invalide.")
 
             for i in murs["verticaux"]:
-                if (2 <= i[0] <= 9) == False:
+                if (2 <= i[0] <= 9) is False:
                     raise QuoridorError("La position d'un mur est invalide.")
 
-                elif (1 <= i[1] <= 8) == False:
+                if (1 <= i[1] <= 8) is False:
                     raise QuoridorError("La position d'un mur est invalide.")
-
 
         état = {"joueurs": joueurs, "murs": murs}
         self.état = état
         return self.état
-
 
     def formater_légende(self):
         """Formater la représentation graphique de la légende.
@@ -144,33 +138,31 @@ class Quoridor:
         espace_ajoutee_joueur1 = 0
         if différence_espace > 0:
             espace_ajoutee_joueur2 = 0
-            espace_ajoutee_joueur2 = ((' '*(différence_espace)))
-            murs_joueur1 = (nb_murs_joueur1*'|')
-            murs_joueur2 = (nb_murs_joueur2*'|')
+            espace_ajoutee_joueur2 = ((' ' * (différence_espace)))
+            murs_joueur1 = (nb_murs_joueur1 * '|')
+            murs_joueur2 = (nb_murs_joueur2 * '|')
             legende = ("Légende:\n"
-               f"   1={nom_joueur1}, murs={murs_joueur1}\n"
-               f"   2={nom_joueur2}, {espace_ajoutee_joueur2}murs={murs_joueur2}\n")
+                       f"   1={nom_joueur1}, murs={murs_joueur1}\n"
+                       f"   2={nom_joueur2}, {espace_ajoutee_joueur2}murs={murs_joueur2}\n")
             self.legende = legende
             return self.legende
         if différence_espace < 0:
             espace_ajoutee_joueur1 = 0
-            espace_ajoutee_joueur1 = ((' '*(-1*(différence_espace))))
-            murs_joueur1 = (nb_murs_joueur1*'|')
-            murs_joueur2 = (nb_murs_joueur2*'|')
+            espace_ajoutee_joueur1 = ((' ' * (-1 * (différence_espace))))
+            murs_joueur1 = (nb_murs_joueur1 * '|')
+            murs_joueur2 = (nb_murs_joueur2 * '|')
             legende = (
                 "Légende:\n"   f"   1={nom_joueur1}, {espace_ajoutee_joueur1}murs={murs_joueur1}\n"
-               f"   2={nom_joueur2}, murs={murs_joueur2}\n")
+                f"   2={nom_joueur2}, murs={murs_joueur2}\n")
             return legende
 
-        murs_joueur1 = nb_murs_joueur1*'|'
-        murs_joueur2 = nb_murs_joueur2*'|'
+        murs_joueur1 = nb_murs_joueur1 * '|'
+        murs_joueur2 = nb_murs_joueur2 * '|'
         legende = ("Légende:\n"
-        f"   1={nom_joueur1}, murs={murs_joueur1}\n"
-        f"   2={nom_joueur2}, murs={murs_joueur2}\n")
+                   f"   1={nom_joueur1}, murs={murs_joueur1}\n"
+                   f"   2={nom_joueur2}, murs={murs_joueur2}\n")
 
         return legende
-
-
 
     def formater_damier(self):
         """Formater la représentation graphique du damier.
@@ -210,35 +202,35 @@ class Quoridor:
         for i in murs_verticaux:
             variable_x = damier.find(str(i[1]))
             damier = list(damier)
-            variable_y = (4+(4*((i[0])-1))-2)
-            damier[variable_x+variable_y] = ('|')
-            damier[variable_x+variable_y-40] = ('|')
-            damier[variable_x+variable_y-80] = ('|')
+            variable_y = (4 + (4 * ((i[0]) - 1)) - 2)
+            damier[variable_x + variable_y] = ('|')
+            damier[variable_x + variable_y - 40] = ('|')
+            damier[variable_x + variable_y - 80] = ('|')
             variable_z = ''.join(damier)
             damier = variable_z
         for i in murs_horizontaux:
             variable_x = damier.find(str(i[1]))
             damier = list(damier)
-            variable_y = (+40+4+(4*((i[0])))-5)
-            damier[variable_y+variable_x] = ('-')
-            damier[variable_y+variable_x+1] = ('-')
-            damier[variable_y+variable_x+2] = ('-')
-            damier[variable_y+variable_x+3] = ('-')
-            damier[variable_y+variable_x+4] = ('-')
-            damier[variable_y+variable_x+5] = ('-')
-            damier[variable_y+variable_x+6] = ('-')
+            variable_y = (+40 + 4 + (4 * ((i[0]))) - 5)
+            damier[variable_y + variable_x] = ('-')
+            damier[variable_y + variable_x + 1] = ('-')
+            damier[variable_y + variable_x + 2] = ('-')
+            damier[variable_y + variable_x + 3] = ('-')
+            damier[variable_y + variable_x + 4] = ('-')
+            damier[variable_y + variable_x + 5] = ('-')
+            damier[variable_y + variable_x + 6] = ('-')
             variable_z = ''.join(damier)
             damier = variable_z
         variable_x = damier.find(str(positionnement_joueur1[1]))
         damier = list(damier)
-        variable_y = (4+(4*((positionnement_joueur1[0])-1)))
-        damier[variable_y+variable_x] = ('1')
+        variable_y = (4 + (4 * ((positionnement_joueur1[0]) - 1)))
+        damier[variable_y + variable_x] = ('1')
         variable_z = ''.join(damier)
         damier = variable_z
         variable_x = damier.find(str(positionnement_joueur2[1]))
         damier = list(damier)
-        variable_y = (4+(4*((positionnement_joueur2[0])-1)))
-        damier[variable_y+variable_x] = ('2')
+        variable_y = (4 + (4 * ((positionnement_joueur2[0]) - 1)))
+        damier[variable_y + variable_x] = ('2')
         variable_z = ''.join(damier)
         damier = variable_z
         return damier
@@ -253,8 +245,7 @@ class Quoridor:
         """
         damier = Quoridor.formater_damier(self)
         legende = Quoridor.formater_légende(self)
-        return(f"{legende}{damier}")
-
+        return f"{legende}{damier}"
 
     def état_courant(self):
         """Produire l'état actuel du jeu.
@@ -301,21 +292,20 @@ class Quoridor:
                Le type de coup est une chaîne de caractères.
                La position est une liste de 2 entier [x, y].
         """
-        if joueur != 1 and joueur != 2:
+        if joueur not in (1, 2):
             raise QuoridorError('Le numéro du joueur est autre que 1 ou 2.')
 
         type_coup = input("Quel type de coup voulez-vous jouer? ('D', 'MH', 'MV'):")
         variable_x = input("Donnez la position où appliquer ce coup (x,y):")
-        #type_coup ="MV"
-        #x = ("4,2")
-        if type_coup != 'D' and type_coup != 'MV' and  type_coup != 'MH':
+        # type_coup ="MV"
+        # x = ("4,2")
+        if type_coup not in ('D', 'MV', 'MH'):
             raise QuoridorError("La position est invalide (en dehors du damier).")
-
 
         variable_p = int(variable_x[0])
         variable_w = int(variable_x[2])
         position = [variable_p, variable_w]
-        return(type_coup, position)
+        return (type_coup, position)
 
     def déplacer_jeton(self, joueur, position):
 
@@ -332,20 +322,19 @@ class Quoridor:
             QuoridorError: La position est invalide (en dehors du damier).
             QuoridorError: La position est invalide pour l'état actuel du jeu.
         """
-        Position1 = 0
-        référence = (self.état["joueurs"][joueur-1]["pos"][0]) + (self.état["joueurs"][joueur-1]["pos"][1])
-        if joueur != 1 and joueur != 2:
+        position1 = 0
+        référence = (self.état["joueurs"][joueur - 1]["pos"][0]) + (self.état["joueurs"][joueur - 1]["pos"][1])
+        if joueur not in (1, 2):
             raise QuoridorError('Le numéro du joueur est autre que 1 ou 2.')
 
-        if  position[0] > 9 or position[0] < 1:
+        if position[0] > 9 or position[0] < 1:
             raise QuoridorError('La position est invalide (en dehors du damier).')
 
-        if  position[1] > 9 or position[1] < 1:
+        if position[1] > 9 or position[1] < 1:
             raise QuoridorError('La position est invalide (en dehors du damier).')
 
         if position[0] + position[1] != référence + 1:
             if position[0] + position[1] != référence - 1:
-
                 raise QuoridorError("La position est invalide pour l'état actuel du jeu.")
 
         graphe = construire_graphe(
@@ -353,30 +342,27 @@ class Quoridor:
             tuple(self.état['murs']['horizontaux']),
             tuple(self.état['murs']['verticaux']))
 
-        Choix_de_chemin = list(graphe.successors(tuple(self.état["joueurs"][joueur-1]["pos"])))
+        choix_de_chemin = list(graphe.successors(tuple(self.état["joueurs"][joueur - 1]["pos"])))
 
-        for i in Choix_de_chemin:
+        for i in choix_de_chemin:
             if tuple(position) == i:
-                Position1 = 'trouvé'
+                position1 = 'trouvé'
 
-        if Position1 != 'trouvé':
+        if position1 != 'trouvé':
             raise QuoridorError("La position est invalide pour l'état actuel du jeu.")
 
-        #for i in self.état["murs"]["horizontaux"]:
-            #if position[1] == i[1]:
-                #if position[0] == i[0] or position[0] == i[0] + 1:
-                    #raise QuoridorError("La position est invalide pour l'état actuel du jeu.")
+        # for i in self.état["murs"]["horizontaux"]:
+        # if position[1] == i[1]:
+        # if position[0] == i[0] or position[0] == i[0] + 1:
+        # raise QuoridorError("La position est invalide pour l'état actuel du jeu.")
 
-        #for i in self.état["murs"]["verticaux"]:
-            #if position[0] == i[0]:
-                #if position[1] == i[1] or position[1] == i[1] + 1:
-                    #raise QuoridorError("La position est invalide pour l'état actuel du jeu.")
+        # for i in self.état["murs"]["verticaux"]:
+        # if position[0] == i[0]:
+        # if position[1] == i[1] or position[1] == i[1] + 1:
+        # raise QuoridorError("La position est invalide pour l'état actuel du jeu.")
 
-        self.état["joueurs"][joueur-1]["pos"] = position
+        self.état["joueurs"][joueur - 1]["pos"] = position
         Quoridor.jouer_le_coup(Quoridor, 2)
-
-
-
 
     def placer_un_mur(self, joueur, position, orientation):
 
@@ -397,28 +383,25 @@ class Quoridor:
         """
         état = copy.deepcopy(self.état)
 
-        if joueur != 1 and joueur != 2:
+        if joueur not in (1, 2):
             raise QuoridorError("Le numéro du joueur est autre que 1 ou 2.")
 
-
         for i in self.état["murs"]["horizontaux"]:
-            if position[0] == i[0]+1 and position[1]+1 == i[1]:
+            if position[0] == i[0] + 1 and position[1] + 1 == i[1]:
                 raise QuoridorError("Un mur occupe déjà cette position.")
 
         for i in self.état["murs"]["verticaux"]:
-            if position[0] == i[0]-1 and position[1]-1 == i[1]:
+            if position[0] == i[0] - 1 and position[1] - 1 == i[1]:
                 raise QuoridorError("Un mur occupe déjà cette position.")
 
-
-
         if orientation == "MH":
             for i in self.état["murs"]["horizontaux"]:
-                if i[0]-1 == position[0] and i[1] == position[1]:
+                if i[0] - 1 == position[0] and i[1] == position[1]:
                     raise QuoridorError("Un mur occupe déjà cette position.")
 
         if orientation == "MV":
             for i in self.état["murs"]["verticaux"]:
-                if i[0] == position[0] and (i[1]-1) == position[1]:
+                if i[0] == position[0] and (i[1] - 1) == position[1]:
                     raise QuoridorError("Un mur occupe déjà cette position.")
 
         if orientation == "MV":
@@ -432,58 +415,48 @@ class Quoridor:
                     raise QuoridorError("Un mur occupe déjà cette position.")
 
         if orientation == "MH":
-            if (1 <= position[0] <= 8) == False:
+            if (1 <= position[0] <= 8) is False:
                 raise QuoridorError("La position d'un mur est invalide.")
 
-            elif (2 <= position[1] <= 9) == False:
+            if (2 <= position[1] <= 9) is False:
                 raise QuoridorError("La position d'un mur est invalide.")
 
         if orientation == "MV":
-            if (2 <= position[0] <= 9) == False:
+            if (2 <= position[0] <= 9) is False:
                 raise QuoridorError("La position d'un mur est invalide.")
 
-            elif (1 <= position[1] <= 8) == False:
+            if (1 <= position[1] <= 8) is False:
                 raise QuoridorError("La position d'un mur est invalide.")
 
-
-        if self.état["joueurs"][joueur-1]["murs"] <= 0:
+        if self.état["joueurs"][joueur - 1]["murs"] <= 0:
             raise QuoridorError("Le joueur a déjà placé tous ses murs.")
-
 
         if orientation == "MV":
             état["murs"]["verticaux"] += [position]
-            état["joueurs"][joueur-1]["murs"] -=  1
+            état["joueurs"][joueur - 1]["murs"] -= 1
 
         if orientation == "MH":
             état["murs"]["horizontaux"] += [position]
-            état["joueurs"][joueur-1]["murs"] -=  1
-
+            état["joueurs"][joueur - 1]["murs"] -= 1
 
         graphe = construire_graphe(
             [tuple(joueur['pos']) for joueur in état['joueurs']],
             tuple(état['murs']['horizontaux']),
             tuple(état['murs']['verticaux']))
 
-
-
-
-        if nx.has_path(graphe, tuple(état["joueurs"][0]["pos"]), 'B1') == False:
-
+        if not nx.has_path(graphe, tuple(état["joueurs"][0]["pos"]), 'B1'):
             raise QuoridorError("La position du mur est invalide puisqu'elle enferme le joueur")
 
-        if nx.has_path(graphe, tuple(état["joueurs"][1]["pos"]), 'B2') == False:
-
+        if not nx.has_path(graphe, tuple(état["joueurs"][1]["pos"]), 'B2'):
             raise QuoridorError("La position du mur est invalide puisqu'elle enferme le joueur")
 
         if orientation == "MV":
             self.état["murs"]["verticaux"] += [position]
-            self.état["joueurs"][joueur-1]["murs"] -=  1
+            self.état["joueurs"][joueur - 1]["murs"] -= 1
 
         if orientation == "MH":
             self.état["murs"]["horizontaux"] += [position]
-            self.état["joueurs"][joueur-1]["murs"] -=  1
-
-
+            self.état["joueurs"][joueur - 1]["murs"] -= 1
 
         if joueur == 1:
             Quoridor.jouer_le_coup(Quoridor, 2)
@@ -510,7 +483,7 @@ class Quoridor:
             Tuple[str, List[int, int]]: Un tuple composé du type et de la position du coup joué.
         """
 
-        if joueur != 1 and joueur != 2:
+        if joueur not in (1, 2):
             raise QuoridorError("Le numéro du joueur est autre que 1 ou 2.")
 
         if self.état["joueurs"][0]["pos"][1] == 9:
@@ -519,38 +492,34 @@ class Quoridor:
         if self.état["joueurs"][1]["pos"][1] == 1:
             raise QuoridorError(" QuoridorError: La partie est déjà terminée.")
 
-
         graphe = construire_graphe(
             [tuple(joueur['pos']) for joueur in self.état['joueurs']],
             tuple(self.état['murs']['horizontaux']),
             tuple(self.état['murs']['verticaux']))
 
-        liste_chemin_rapide_J1 = nx.shortest_path(graphe, tuple(self.état["joueurs"][0]["pos"]), 'B1')
+        liste_chemin_rapide_j1 = nx.shortest_path(graphe, tuple(self.état["joueurs"][0]["pos"]), 'B1')
 
-        for i in liste_chemin_rapide_J1:
-            if type(i) != tuple:
-                liste_chemin_rapide_J1.remove(i)
+        for i in liste_chemin_rapide_j1:
+            if not isinstance(i, tuple):
+                liste_chemin_rapide_j1.remove(i)
 
-        Choix_de_chemin_J1 = list(graphe.successors(tuple(self.état["joueurs"][0]["pos"])))
-        for i in Choix_de_chemin_J1:
-            if type(i) != tuple:
-                Choix_de_chemin_J1.remove(i)
+        choix_de_chemin_j1 = list(graphe.successors(tuple(self.état["joueurs"][0]["pos"])))
+        for i in choix_de_chemin_j1:
+            if not isinstance(i, tuple):
+                choix_de_chemin_j1.remove(i)
 
-        for i in liste_chemin_rapide_J1:
-            for j in Choix_de_chemin_J1:
+        for i in liste_chemin_rapide_j1:
+            for j in choix_de_chemin_j1:
                 if j == i:
-                    x = j
+                    variable_x = j
 
-
-
-        if len(Choix_de_chemin_J1) > 1:
-            if self.état["joueurs"][0]["pos"][0] != x[0]:
- 
-                delta = self.état["joueurs"][0]["pos"][0] - x[0]
+        if len(choix_de_chemin_j1) > 1:
+            if self.état["joueurs"][0]["pos"][0] != variable_x[0]:
+                delta = self.état["joueurs"][0]["pos"][0] - variable_x[0]
                 if delta < 0:
                     variable_k = self.état["joueurs"][0]["pos"][0]
                     variable_y = self.état["joueurs"][0]["pos"][1]
-                    variable_ky = [(variable_k+1), variable_y]
+                    variable_ky = [(variable_k + 1), variable_y]
                 if delta > 0:
                     variable_k = self.état["joueurs"][0]["pos"][0]
                     variable_y = self.état["joueurs"][0]["pos"][1]
@@ -558,25 +527,19 @@ class Quoridor:
                 try:
                     Quoridor.placer_un_mur(Quoridor, 2, variable_ky, "MV")
                 except QuoridorError:
-                     variable_k = "ne peut pas mettre un mur"
+                    variable_k = "ne peut pas mettre un mur"
 
-
-
-
-
-            if self.état["joueurs"][0]["pos"][1] != x[1]:
+            if self.état["joueurs"][0]["pos"][1] != variable_x[1]:
                 variable_k = self.état["joueurs"][0]["pos"][0]
                 variable_y = self.état["joueurs"][0]["pos"][1]
-                variable_ky = [(variable_k-1), (variable_y+1)]
+                variable_ky = [(variable_k - 1), (variable_y + 1)]
                 for i in self.état["murs"]["horizontaux"]:
 
                     if i[1] == (variable_y + 1) and (i[0] + 2) == variable_k:
+                        variable_ky = [variable_k, (variable_y + 1)]
 
-                        variable_ky = [variable_k, (variable_y+1)]
-
-                #pos = (list(self.état["joueurs"][0]["pos"]))
-                #self.état['murs']['verticaux'] += ([pos])
-
+                # pos = (list(self.état["joueurs"][0]["pos"]))
+                # self.état['murs']['verticaux'] += ([pos])
 
                 try:
                     Quoridor.placer_un_mur(Quoridor, 2, variable_ky, "MH")
@@ -584,8 +547,8 @@ class Quoridor:
                     variable_k = "ne peut pas mettre un mur"
 
             if variable_k == "ne peut pas mettre un mur":
-                mouvement_rapide_J2 = nx.shortest_path(graphe, tuple(self.état["joueurs"][1]["pos"]), 'B2')
-                self.état["joueurs"][1]["pos"] = list(mouvement_rapide_J2[1])
+                mouvement_rapide_j2 = nx.shortest_path(graphe, tuple(self.état["joueurs"][1]["pos"]), 'B2')
+                self.état["joueurs"][1]["pos"] = list(mouvement_rapide_j2[1])
                 joueurs = self.état["joueurs"]
                 murs = self.état["murs"]
                 return (joueurs, murs)
